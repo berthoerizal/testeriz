@@ -27,8 +27,8 @@
                     <div class="form-group">
                         <label for="id_role">Akses Level</label>
                         <select class="form-control form-control-sm" id="id_role" name="id_role">
-                            <option value="anggota" @if ($user->id_role == '1') selected @endif>Anggota</option>
-                            <option value="admin" @if ($user->id_role == '21') selected @endif>Administrator</option>
+                            <option value="1" @if ($user->id_role == '1') selected @endif>Anggota</option>
+                            <option value="21" @if ($user->id_role == '21') selected @endif>Administrator</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -85,18 +85,18 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="">
-                    <i class="fa fa-address-card"></i>
+                    <i class="fa fa-key"></i>
                     <span>Riwayat Ujian</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="">
-                    <i class="fa fa-address-card"></i>
+                    <i class="fa fa-question"></i>
                     <span>Riwayat Soal</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('konfigurasi.index')}}">
+                <a class="nav-link" href="{{ route('konfigurasi.index') }}">
                     <i class="fa fa-wrench"></i>
                     <span>Konfigurasi</span></a>
             </li>

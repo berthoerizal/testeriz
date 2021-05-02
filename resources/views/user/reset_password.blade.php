@@ -1,4 +1,4 @@
-@if ($user->id == Auth::user()->id)
+@if ($user->id_role == 21)
     <a class="btn btn-primary btn-sm disabled" href="#">
         <i class="fa fa-key"></i>
         Password
