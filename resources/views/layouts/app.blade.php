@@ -28,6 +28,8 @@
 
     <link href="{{ asset('assets/select2/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/jqueryui/jquery-ui.min.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 </head>
 
 <body id="page-top">
@@ -78,7 +80,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('galeri.index') }}">
                     <i class="fa fa-image"></i>
                     <span>Galeri</span></a>
             </li>
@@ -200,7 +202,7 @@
 
             <script>
                 $(document).ready(function() {
-                    $('.select2').select2();
+                    $('#select2').select2();
                 });
                 tinymce.init({
                     selector: '.textarea-tinymce',

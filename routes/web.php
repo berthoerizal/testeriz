@@ -23,3 +23,6 @@ Route::put('/update_password/{id}', ['as' => 'update_password', 'uses' => 'Profi
 Route::resource('user', 'UserController');
 Route::get('/reset_password/{id}', ['as' => 'reset_password', 'uses' => 'UserController@reset_password']);
 Route::resource('konfigurasi', 'KonfigurasiController');
+Route::resource('galeri', 'GaleriController');
+Route::post('/store_jenis', 'GaleriController@store_jenis')->name('store_jenis');
+Route::post('/update_jenis/{id}', ['as' => 'update_jenis', 'uses' => 'GaleriController@update_jenis']);

@@ -53,7 +53,7 @@
                                         Anggota
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @include('user.edit')
                                     @include('user.reset_password')
                                     @include('user.delete')
