@@ -10,38 +10,26 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1>
         <hr>
-
         <div class="row">
-            <div class="col-md-4">
-                <div class="card shadow col-md-12 mb-4">
-                    <div class="card-header">
-                        <div class="float-left">
-                            <a href="{{ route('soal.index') }}" class="btn btn-primary btn-sm"><i
-                                    class="fa fa-arrow-circle-left"></i> Kembali</a>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    @if ($soal->materi_video != null)
+                        <div class="embed-responsive embed-responsive-1by1 card-img-top">
+                            <iframe width="420" height="315" src="https://www.youtube.com/embed/{{ $soal->materi_video }}"
+                                frameborder="0" allowfullscreen></iframe>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div style="text-align: center;">
-                            @if ($soal->materi_video != null)
-                                <div class="embed-responsive embed-responsive-1by1">
-                                    <iframe width="420" height="315"
-                                        src="https://www.youtube.com/embed/{{ $soal->materi_video }}" frameborder="0"
-                                        allowfullscreen></iframe>
-                                </div>
-                            @else
-                                <img src="{{ asset('assets/images/novideodefault.PNG') }}"
-                                    class="img img-responsive img-preview" width="200px">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        Materi Video
+                    @else
+                        <img class="card-img-top" src="{{ asset('assets/images/novideodefault.PNG') }}"
+                            alt="Card image cap">
+                    @endif
+                    <div class="card-body text-center">
+                        <p class="card-text"><b>Materi Video</b></p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-8">
-                <div class="card shadow col-md-12 mb-4">
+            <div class="col-md-9">
+                <div class="card shadow col-md-12 mb-3">
                     <div class="card-header">
                         Detail Informasi Soal
                     </div>
@@ -70,15 +58,8 @@
                                         <td><b>{{ $soal->judul_soal }}</b></td>
                                     </tr>
                                     <tr>
-                                        <td>Jenis Soal</td>
-                                        <td>
-                                            @if ($soal->jenis_soal == 'objektif')
-                                                <b>Objektif</b><br>
-                                                Tampilan: {{ $soal->nama_jenis_gambar }}
-                                            @else
-                                                <b>Essay</b>
-                                            @endif
-                                        </td>
+                                        <td>Tampilan Soal</td>
+                                        <td>{{ $soal->nama_jenis_gambar }}</td>
                                     </tr>
                                     <tr>
                                         <td>Status Soal</td>
@@ -91,22 +72,26 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Jadwal Soal</td>
+                                        <td>Jadwal Mulai</td>
                                         <td>
-                                            @if ($soal->tanggal_mulai == null || $soal->tanggal_selesai == null || $soal->waktu_mulai == null || $soal->waktu_selesai == null)
-                                                Mulai: -<br />
-                                                Selesai: -
+                                            @if ($soal->tanggal_mulai == null || $soal->waktu_mulai == null)
+                                                -
                                             @else
-                                                <?php echo 'Mulai: ' .
-                                                date('d-m-Y', strtotime($soal->tanggal_mulai)) .
+                                                <?php echo date('d-m-Y', strtotime($soal->tanggal_mulai)) .
                                                 '
                                                 ' .
-                                                $soal->waktu_mulai .
-                                                '<br />' .
-                                                'Selesai: ' .
-                                                date('d-m-Y', strtotime($soal->tanggal_selesai)) .
-                                                ' ' .
-                                                $soal->waktu_selesai; ?>
+                                                $soal->waktu_mulai; ?>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jadwal Selesai</td>
+                                        <td>
+                                            @if ($soal->tanggal_selesai == null || $soal->waktu_selesai == null)
+                                                -
+                                            @else
+                                                <?php echo date('d-m-Y', strtotime($soal->tanggal_selesai)) .
+                                                ' ' . $soal->waktu_selesai; ?>
                                             @endif
                                         </td>
                                     </tr>
@@ -125,8 +110,61 @@
                                 <i class="fa fa-pencil-alt"></i>
                                 Edit
                             </a>
+                            @include('soal.modal_create_tanya')
                         </span>
                         <br><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card shadow col-md-12 mb-4">
+                    <div class="card-header">
+                        <div class="float-left">
+                            Pertanyaan Soal
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th width="10%" class="text-center">Gambar</th>
+                                        <th>Pertanyaan</th>
+                                        <th>Jawaban</th>
+                                        <th width="20%" class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    foreach ($tanya as $tanya) { ?>
+                                    <tr>
+                                        <td class="text-center">
+                                            <?php echo $i; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            @if (!$tanya->gambar)
+                                                <img src="{{ asset('assets/images/imagedefault.png') }}"
+                                                    class="img img-responsive img-thumbnail" width="50px">
+                                            @else
+                                                <img src="{{ asset('assets/images/' . $tanya->gambar) }}"
+                                                    class="img img-responsive img-thumbnail" width="50px">
+                                            @endif
+                                        </td>
+                                        <td><?php echo $tanya->pertanyaan; ?></td>
+                                        <td>{{ $tanya->jawaban }}</td>
+                                        <td>
+                                            @include('soal.modal_edit_tanya')
+                                            @include('soal.modal_delete_tanya')
+                                        </td>
+                                    </tr>
+                                    <?php $i++;}
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

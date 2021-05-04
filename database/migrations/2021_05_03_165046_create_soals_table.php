@@ -20,7 +20,7 @@ class CreateSoalsTable extends Migration
             $table->string('pass_soal');
             $table->string('judul_soal');
             $table->string('slug_soal');
-            $table->string('jenis_soal');
+            $table->string('jenis_soal')->nullable();
             $table->string('status_soal');
             $table->string('materi_file')->nullable();
             $table->string('materi_video')->nullable();

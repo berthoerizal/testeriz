@@ -12,25 +12,21 @@
         <hr>
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="card shadow col-md-12 mb-4">
-                    <div class="card-body">
-                        <div style="text-align: center;">
-                            @if ($user->gambar != null)
-                                <img src="{{ asset('assets/images/' . $user->gambar) }}"
-                                    class="img img-responsive img-preview" width="200px">
-                            @else
-                                <img src="{{ asset('assets/images/profiledefault.PNG') }}"
-                                    class="img img-responsive img-preview" width="200px">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <b>{{ $user->name }}</b>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    @if ($user->gambar != null)
+                        <img class="card-img-top" src="{{ asset('assets/images/' . $user->gambar) }}"
+                            alt="Card image cap">
+                    @else
+                        <img class="card-img-top" src="{{ asset('assets/images/profiledefault.PNG') }}"
+                            alt="Card image cap">
+                    @endif
+                    <div class="card-body text-center">
+                        <p class="card-text"><b>{{ $user->name }}</b></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card shadow col-md-12 mb-4">
                     <div class="card-header">
                         <div class="float-right">

@@ -110,7 +110,7 @@ class GaleriController extends Controller
      */
     public function edit($id)
     {
-        $title = "Tambah Gambar";
+        $title = "Edit Gambar";
         $jenis = DB::table('jenisgaleris')
             ->select('*')
             ->get();

@@ -28,3 +28,4 @@ Route::post('/store_jenis', 'GaleriController@store_jenis')->name('store_jenis')
 Route::post('/update_jenis/{id}', ['as' => 'update_jenis', 'uses' => 'GaleriController@update_jenis']);
 Route::resource('soal', 'SoalController');
 Route::get('/download_materi/{id}', ['as' => 'download_materi', 'uses' => 'SoalController@download_materi']);
+Route::resource('tanya', 'TanyaController');

@@ -70,7 +70,6 @@ class SoalController extends Controller
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'pass_soal' => Str::random(8),
-                'jenis_soal' => $request->jenis_soal,
                 'status_soal' => $request->status_soal,
                 'materi_file' => $materi_file,
                 'materi_video' => $request->materi_video,
@@ -87,7 +86,6 @@ class SoalController extends Controller
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'pass_soal' => Str::random(8),
-                'jenis_soal' => $request->jenis_soal,
                 'status_soal' => $request->status_soal,
                 'materi_file' => $materi_file,
                 'materi_video' => $request->materi_video,
@@ -123,7 +121,13 @@ class SoalController extends Controller
             ->select('soals.*', 'users.name', 'jenisgaleris.nama_jenis_gambar')
             ->where('soals.id', $id)
             ->first();
-        return view('soal.show', ['title' => $title, 'soal' => $soal]);
+
+        $tanya = DB::table('tanyas')
+            ->select('tanyas.*')
+            ->where('id_soal', $id)
+            ->get();
+
+        return view('soal.show', ['title' => $title, 'soal' => $soal, 'tanya' => $tanya]);
     }
 
     /**
@@ -172,7 +176,6 @@ class SoalController extends Controller
                 'id_galeri' => $request->id_galeri,
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
-                'jenis_soal' => $request->jenis_soal,
                 'status_soal' => $request->status_soal,
                 'materi_file' => $materi_file,
                 'materi_video' => $request->materi_video,
@@ -196,7 +199,6 @@ class SoalController extends Controller
                 'id_galeri' => $request->id_galeri,
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
-                'jenis_soal' => $request->jenis_soal,
                 'status_soal' => $request->status_soal,
                 'materi_video' => $request->materi_video,
                 'tanggal_mulai' => $request->tanggal_mulai,
@@ -227,6 +229,8 @@ class SoalController extends Controller
         $old_image = public_path() . "/assets/materi/" . $soal->materi_file;
         @unlink($old_image);
         $soal->delete();
+
+        DB::table('tanyas')->where('id_soal', $id)->delete();
 
         if (!$soal) {
             session()->flash('error', 'Data gagal dihapus');

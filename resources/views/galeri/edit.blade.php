@@ -12,11 +12,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <div class="float-left">
-                    <a href="{{ route('galeri.index') }}" class="btn btn-primary btn-sm"><i
-                            class="fa fa-arrow-circle-left"></i> Kembali</a>
-                    @include('galeri.modal_update_jenis')
-                </div>
+                @include('galeri.modal_update_jenis')
             </div>
             <div class="card-body">
                 <form action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
@@ -46,7 +42,8 @@
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="gambar" name="gambar"
                                                         onchange="previewImg()">
-                                                    <label class="custom-file-label" for="gambar">Pilih Gambar</label>
+                                                    <label class="custom-file-label" for="gambar">Pilih
+                                                        Gambar</label>
                                                 </div>
                                             </div>
                                         </div>

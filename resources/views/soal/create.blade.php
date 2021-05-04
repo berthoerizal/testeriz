@@ -12,10 +12,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <div class="float-left">
-                    <a href="{{ route('soal.index') }}" class="btn btn-primary btn-sm"><i
-                            class="fa fa-arrow-circle-left"></i> Kembali</a>
-                </div>
+                Tambah Informasi Soal
             </div>
             <div class="card-body">
                 <form action="{{ route('soal.store') }}" method="POST" enctype="multipart/form-data">
@@ -27,13 +24,6 @@
                                     <label for="judul_soal">Judul Soal</label>
                                     <input type="text" class="form-control" name="judul_soal" id="judul_soal"
                                         placeholder="Judul Soal" value="{{ old('judul_soal') }}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jenis_soal">Jenis Soal</label>
-                                    <select class="form-control" id="jenis_soal" name="jenis_soal">
-                                        <option value="objektif">Objektif</option>
-                                        <option value="essay">Essay</option>
-                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="status_soal">Status Soal</label>

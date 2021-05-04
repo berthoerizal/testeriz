@@ -20,13 +20,11 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
-                        style="font-size: 12px;">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th width="5%">#</th>
                                 <th>Judul Soal</th>
-                                <th>Jenis Soal</th>
                                 <th>Status Soal</th>
                                 <th>Jadwal Soal</th>
                                 <th>Password Soal</th>
@@ -43,7 +41,6 @@
                                 </td>
                                 <td><?php echo $soal->judul_soal; ?><br /><span>Oleh:
                                         {{ $soal->name }}</span></td>
-                                <td><b><?php echo $soal->jenis_soal; ?></b></td>
                                 <td>
                                     @if ($soal->status_soal == 'publish')
                                         <b style="color: green;"><?php echo $soal->status_soal; ?></b>

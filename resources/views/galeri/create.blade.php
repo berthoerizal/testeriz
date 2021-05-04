@@ -41,11 +41,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <div class="float-left">
-                    <a href="{{ route('galeri.index') }}" class="btn btn-primary btn-sm"><i
-                            class="fa fa-arrow-circle-left"></i> Kembali</a>
-                    @include('galeri.modal_jenis')
-                </div>
+                @include('galeri.modal_jenis')
             </div>
             <div class="card-body">
                 <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
@@ -59,7 +55,8 @@
                                             <label for="jenis">Jenis Gambar</label>
                                             <select class="form-control" id="select2" name="id_jenis_gambar">
                                                 @foreach ($jenis as $jenis)
-                                                    <option value="{{ $jenis->id }}">{{ $jenis->nama_jenis_gambar }}
+                                                    <option value="{{ $jenis->id }}">
+                                                        {{ $jenis->nama_jenis_gambar }}
                                                     </option>
                                                 @endforeach
                                             </select>

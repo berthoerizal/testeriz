@@ -12,10 +12,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <div class="float-left">
-                    <a href="{{ route('soal.show', $soal->id) }}" class="btn btn-primary btn-sm"><i
-                            class="fa fa-arrow-circle-left"></i> Kembali</a>
-                </div>
+                Edit Informasi Soal
             </div>
             <div class="card-body">
                 <form action="{{ route('soal.update', $soal->id) }}" method="POST" enctype="multipart/form-data">
@@ -28,13 +25,6 @@
                                     <label for="judul_soal">Judul Soal</label>
                                     <input type="text" class="form-control" name="judul_soal" id="judul_soal"
                                         placeholder="Judul Soal" value="{{ $soal->judul_soal }}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jenis_soal">Jenis Soal</label>
-                                    <select class="form-control" id="jenis_soal" name="jenis_soal">
-                                        <option value="objektif" @if ($soal->jenis_soal == 'objektif') selected @endif>Objektif</option>
-                                        <option value="essay" @if ($soal->jenis_soal == 'essay') selected @endif>Essay</option>
-                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="status_soal">Status Soal</label>
