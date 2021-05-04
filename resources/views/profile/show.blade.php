@@ -12,6 +12,24 @@
         <hr>
 
         <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow col-md-12 mb-4">
+                    <div class="card-body">
+                        <div style="text-align: center;">
+                            @if ($user->gambar != null)
+                                <img src="{{ asset('assets/images/' . $user->gambar) }}"
+                                    class="img img-responsive img-preview" width="200px">
+                            @else
+                                <img src="{{ asset('assets/images/profiledefault.PNG') }}"
+                                    class="img img-responsive img-preview" width="200px">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <b>{{ $user->name }}</b>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-8">
                 <div class="card shadow col-md-12 mb-4">
                     <div class="card-header">
@@ -56,24 +74,6 @@
                             <br><br>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow col-md-12 mb-4">
-                    <div class="card-body">
-                        <div style="text-align: center;">
-                            @if ($user->gambar != null)
-                                <img src="{{ asset('assets/images/' . $user->gambar) }}"
-                                    class="img img-responsive img-preview" width="200px">
-                            @else
-                                <img src="{{ asset('assets/images/profiledefault.PNG') }}"
-                                    class="img img-responsive img-preview" width="200px">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        Photo Profile: <b>{{ $user->name }}</b>
-                    </div>
                 </div>
             </div>
         </div>

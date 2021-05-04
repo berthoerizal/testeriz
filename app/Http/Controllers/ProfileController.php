@@ -33,7 +33,7 @@ class ProfileController extends Controller
         $request->validate([
             'email' => 'required|email|unique:users,email,' . $id,
             'name' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('gambar')) {

@@ -1,0 +1,128 @@
+Website dan Undangan Pernikahan Digital
+Solusi pernikahan lebih hemat, praktis, dan kekinian dengan e-invitation yang disebar otomatis untuk memberikan kesan terbaik.
+
+Undangan Pernikahan Online Gratis
+Undangan pernikahan online gratis dalam bentuk website, video, gambar digital
+
+APA ITU WEDDINGKU.ID?
+Weddingku.id adalah sebuah platform untuk membuat undangan pernikahan online. Platform ini didisain untuk membuat undangan sendiri, dan langsung jadi. Sangat berguna, efisien, dan mudah digunakan.
+
+Kami Buatkan Undangan Digital yang Modern
+dan Menarik untukmu dengan Durasi yang Cepat.
+Cepetnikah.com menyediakan jasa pembuatan berbagai undangan digital. Mulai dari undangan digital website, video, dan statis.
+
+UNDANGAN
+ONLINE
+Kemudahan dalam genggamanmu. Sebar undangan kapanpun kamu mau. Tanpa batasan jarak dan waktu. Satu undangan untuk semua tamu.
+
+Akanmenikah
+Buat dan bagikan Undangan Pernikahanmu semudah bermain Social Media
+
+Nama Web:
+GEAframe
+GEAcrative
+
+layanan:
+Undangan Website
+Undangan Video
+
+Home
+Layanan
+Portofolio
+Cara Pemesanan
+Harga
+Tentang
+Kontak
+
+Template:
+eNno
+OnePage
+Resi
+Techie
+================
+users:
+id
+name
+email
+password
+akses_level
+jabatan
+gambar
+
+konfigurasi:
+author
+namaweb
+desc
+email
+nomor_hp
+instagram
+lokasi
+
+layanan:
+id
+nama_layanan
+slug
+keterangan
+gambar
+status_layanan
+
+detail:
+id
+id_layanan
+keterangan
+gambar
+
+paket:
+id
+id_layanan
+nama_paket
+keterangan
+harga
+diskon
+
+galeri
+id
+id_layanan
+id_user 
+judul
+slug
+gambar
+
+pesanan:
+id
+id_layanan 
+id_paket 
+id_galeri
+pemesan 
+nomor_hp 
+slug
+acara1
+acara2
+nama1 
+ortu1 
+nama2 
+ortu2 
+quotes
+tanggal1
+waktu1
+tanggal2
+waktu2
+lokasi1
+lokasi2
+lokasi_googlemaps
+keterangan
+backsound
+kepada
+status
+bayar
+
+pesanan:
+id
+id_layanan 
+slug
+
+photo:
+id
+id_pesanan
+judul
+gambar

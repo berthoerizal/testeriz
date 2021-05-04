@@ -86,15 +86,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fa fa-key"></i>
-                    <span>Riwayat Ujian</span></a>
+                <a class="nav-link" href="{{ route('soal.index') }}">
+                    <i class="fa fa-question"></i>
+                    <span>Buat Soal</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="">
-                    <i class="fa fa-question"></i>
-                    <span>Riwayat Soal</span></a>
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Ikuti Ujian</span></a>
             </li>
 
             <li class="nav-item">

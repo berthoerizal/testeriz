@@ -66,7 +66,7 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg'
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $x = 0;
@@ -128,12 +128,12 @@ class GaleriController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('gambar')) {
             $resorce  = $request->file('gambar');
-            $gambar   = $resorce->getClientOriginalName();
+            $gambar   =  time() . "_" . $resorce->getClientOriginalName();
             // $resorce->move(\base_path() . "/../assets/images", $gambar);
             $resorce->move(public_path() . '/assets/images', $gambar);
 
