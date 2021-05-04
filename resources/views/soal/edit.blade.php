@@ -39,9 +39,11 @@
                                     <label for="id_galeri">Tampilan Soal Objektif</label>
                                     <select class="form-control" id="select2" name="id_galeri">
                                         @foreach ($galeri as $galeri)
-                                            <option value="{{ $galeri->id_jenisgaleris }}" @if ($soal->id_galeri == $galeri->id_jenisgaleris) selected @endif>
-                                                {{ $galeri->nama_jenisgaleris }} ({{ $galeri->jumlah_gambar }})
-                                            </option>
+                                            @if ($galeri->jumlah_gambar > 3)
+                                                <option value="{{ $galeri->id_jenisgaleris }}" @if ($soal->id_galeri == $galeri->id_jenisgaleris) selected @endif>
+                                                    {{ $galeri->nama_jenisgaleris }} ({{ $galeri->jumlah_gambar }})
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
