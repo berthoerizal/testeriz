@@ -14,8 +14,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="float-right">
-                    <a href="{{ route('soal.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
-                        Tambah</a>
+                    Daftar Ujian Bisa Diikuti
                 </div>
             </div>
             <div class="card-body">
@@ -25,7 +24,6 @@
                             <tr>
                                 <th width="5%">#</th>
                                 <th>Judul</th>
-                                <th>Status</th>
                                 <th>Jadwal Mulai</th>
                                 <th>Jadwal Selesai</th>
                                 <th width="10%" class="text-center">Aksi</th>
@@ -41,13 +39,6 @@
                                 </td>
                                 <td><?php echo $soal->judul_soal; ?><br /><span>Oleh:
                                         {{ $soal->name }}</span></td>
-                                <td>
-                                    @if ($soal->status_soal == 'publish')
-                                        <b style="color: green;"><?php echo ucwords($soal->status_soal); ?></b>
-                                    @else
-                                        <b style="color: red;"><?php echo ucwords($soal->status_soal); ?></b>
-                                    @endif
-                                </td>
                                 <td>
                                     @if ($soal->tanggal_mulai == null || $soal->waktu_mulai == null)
                                         -

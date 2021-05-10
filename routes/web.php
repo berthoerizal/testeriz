@@ -23,9 +23,14 @@ Route::put('/update_password/{id}', ['as' => 'update_password', 'uses' => 'Profi
 Route::resource('user', 'UserController');
 Route::get('/reset_password/{id}', ['as' => 'reset_password', 'uses' => 'UserController@reset_password']);
 Route::resource('konfigurasi', 'KonfigurasiController');
-Route::resource('galeri', 'GaleriController');
-Route::post('/store_jenis', 'GaleriController@store_jenis')->name('store_jenis');
-Route::post('/update_jenis/{id}', ['as' => 'update_jenis', 'uses' => 'GaleriController@update_jenis']);
 Route::resource('soal', 'SoalController');
 Route::get('/download_materi/{id}', ['as' => 'download_materi', 'uses' => 'SoalController@download_materi']);
 Route::resource('tanya', 'TanyaController');
+Route::resource('ujian', 'UjianController');
+Route::post('/daftar_ujian', 'UjianController@daftar_ujian')->name('daftar_ujian');
+Route::get('/tunggu_ujian/{id}', ['as' => 'tunggu_ujian', 'uses' => 'UjianController@tunggu_ujian']);
+Route::get('/jawab_ujian/{id}', ['as' => 'jawab_ujian', 'uses' => 'UjianController@jawab_ujian']);
+
+Route::put('soal/{id_soal}/tanya/{id_tanya}', ['as' => 'user_jawab_ujian', 'uses' => 'UjianController@user_jawab_ujian']);
+
+Route::get('soal/{id_soal}/selesai_ujian', ['as' => 'selesai_ujian', 'uses' => 'UjianController@selesai_ujian']);

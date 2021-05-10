@@ -8,7 +8,11 @@
         @include('partial.message')
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1>
+        @if ($soal->id_user == Auth::user()->id)
+            <h1 class="h3 mb-2 text-gray-800">Info Soal</h1>
+        @else
+            <h1 class="h3 mb-2 text-gray-800">Info Ujian</h1>
+        @endif
         <hr>
         <div class="row">
             <div class="col-md-3 mb-3">
@@ -31,18 +35,23 @@
             <div class="col-md-9">
                 <div class="card shadow col-md-12 mb-3">
                     <div class="card-header">
-                        Detail Informasi Soal
+                        Detail Informasi
+                        @if ($soal->id_user == Auth::user()->id)
+                            Soal
+                        @else
+                            Ujian
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                        <td>Dibuat Oleh</td>
+                                        <td><i class="fa fa-user"></i> Dibuat Oleh</td>
                                         <td>{{ $soal->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Materi File</td>
+                                        <td><i class="fa fa-book"></i> Materi File</td>
                                         <td>
                                             @if ($soal->materi_file == null)
                                                 <i>Tidak ada file.</i>
@@ -54,25 +63,25 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Judul Soal</td>
+                                        <td><i class="fa fa-star"></i> Judul</td>
                                         <td><b>{{ $soal->judul_soal }}</b></td>
                                     </tr>
+                                    @if ($soal->id_user == Auth::user()->id)
+                                        <tr>
+                                            <td><i class="fa fa-newspaper"></i> Status</td>
+                                            <td>
+                                                @if ($soal->status_soal == 'publish')
+                                                    <b style="color: green;"><?php echo
+                                                        ucwords($soal->status_soal); ?></b>
+                                                @else
+                                                    <b style="color: red;"><?php echo
+                                                        ucwords($soal->status_soal); ?></b>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endif
                                     <tr>
-                                        <td>Tampilan Soal</td>
-                                        <td>{{ $soal->nama_jenis_gambar }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Status Soal</td>
-                                        <td>
-                                            @if ($soal->status_soal == 'publish')
-                                                <b style="color: green;"><?php echo $soal->status_soal; ?></b>
-                                            @else
-                                                <b style="color: red;"><?php echo $soal->status_soal; ?></b>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jadwal Mulai</td>
+                                        <td><i class="fa fa-calendar"></i> Jadwal Mulai</td>
                                         <td>
                                             @if ($soal->tanggal_mulai == null || $soal->waktu_mulai == null)
                                                 -
@@ -85,7 +94,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Jadwal Selesai</td>
+                                        <td><i class="fa fa-calendar"></i> Jadwal Selesai</td>
                                         <td>
                                             @if ($soal->tanggal_selesai == null || $soal->waktu_selesai == null)
                                                 -
@@ -96,7 +105,13 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Password Soal</td>
+                                        <td><i class="fa fa-key"></i> Password
+                                            @if ($soal->id_user == Auth::user()->id)
+                                                Soal
+                                            @else
+                                                Ujian
+                                            @endif
+                                        </td>
                                         <td><b>{{ $soal->pass_soal }}</b></td>
                                     </tr>
                                 </tbody>
@@ -105,69 +120,84 @@
                     </div>
                     <div class="card-footer">
                         <span class="float-right">
-                            @include('soal.delete')
-                            <a class="btn btn-primary btn-sm" href="{{ route('soal.edit', $soal->id) }}">
-                                <i class="fa fa-pencil-alt"></i>
-                                Edit
-                            </a>
-                            @include('soal.modal_create_tanya')
+                            @if ($soal->id_user == Auth::user()->id)
+                                @include('soal.delete')
+                                <a class="btn btn-primary btn-sm" href="{{ route('soal.edit', $soal->id) }}">
+                                    <i class="fa fa-pencil-alt"></i>
+                                    Edit
+                                </a>
+                                @include('soal.modal_create_tanya')
+                            @else
+                                @if ($cek_daftar == 0)
+                                    @include('ujian.modal_daftar_ujian')
+                                @elseif ($cek_daftar==1)
+                                    <a href="{{ route('tunggu_ujian', [$soal->id]) }}" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-arrow-right"></i>
+                                        Masuk
+                                        Ujian</a>
+                                @else
+                                    <p>Ujian Telah Selesai</p>
+                                @endif
+                            @endif
                         </span>
                         <br><br>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-12">
-                <div class="card shadow col-md-12 mb-4">
-                    <div class="card-header">
-                        <div class="float-left">
-                            Pertanyaan Soal
+            @if ($soal->id_user == Auth::user()->id)
+                <div class="col-md-12">
+                    <div class="card shadow col-md-12 mb-4">
+                        <div class="card-header">
+                            <div class="float-left">
+                                Pertanyaan Soal
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th width="5%">#</th>
-                                        <th width="10%" class="text-center">Gambar</th>
-                                        <th>Pertanyaan</th>
-                                        <th>Jawaban</th>
-                                        <th width="20%" class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $i = 1;
-                                    foreach ($tanya as $tanya) { ?>
-                                    <tr>
-                                        <td class="text-center">
-                                            <?php echo $i; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            @if (!$tanya->gambar)
-                                                <img src="{{ asset('assets/images/imagedefault.png') }}"
-                                                    class="img img-responsive img-thumbnail" width="50px">
-                                            @else
-                                                <img src="{{ asset('assets/images/' . $tanya->gambar) }}"
-                                                    class="img img-responsive img-thumbnail" width="50px">
-                                            @endif
-                                        </td>
-                                        <td><?php echo $tanya->pertanyaan; ?></td>
-                                        <td>{{ $tanya->jawaban }}</td>
-                                        <td>
-                                            @include('soal.modal_edit_tanya')
-                                            @include('soal.modal_delete_tanya')
-                                        </td>
-                                    </tr>
-                                    <?php $i++;}
-                                    ?>
-                                </tbody>
-                            </table>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">#</th>
+                                            <th width="10%" class="text-center">Gambar</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Jawaban</th>
+                                            <th width="20%" class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $i = 1;
+                                        foreach ($tanya as $tanya) { ?>
+                                        <tr>
+                                            <td class="text-center">
+                                                <?php echo $i; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                @if (!$tanya->gambar)
+                                                    <img src="{{ asset('assets/images/imagedefault.png') }}"
+                                                        class="img img-responsive img-thumbnail" width="50px">
+                                                @else
+                                                    <img src="{{ asset('assets/images/' . $tanya->gambar) }}"
+                                                        class="img img-responsive img-thumbnail" width="50px">
+                                                @endif
+                                            </td>
+                                            <td><?php echo $tanya->pertanyaan; ?></td>
+                                            <td>{{ $tanya->jawaban }}</td>
+                                            <td>
+                                                @include('soal.modal_edit_tanya')
+                                                @include('soal.modal_delete_tanya')
+                                            </td>
+                                        </tr>
+                                        <?php $i++;}
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
     <!-- /.container-fluid -->

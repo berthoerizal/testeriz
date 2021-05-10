@@ -24,7 +24,7 @@
                 <p>Yakin ingin mereset password <b>{{ $user->email }}</b> ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
                 <a href="{{ route('reset_password', $user->id) }}" class="btn btn-primary btn-sm">Reset</a>
             </div>
         </div>

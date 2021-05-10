@@ -23,6 +23,8 @@ class CreateTanyasTable extends Migration
             $table->string('pilihan1')->nullable();
             $table->string('pilihan2')->nullable();
             $table->string('pilihan3')->nullable();
+            $table->string('pilihan4')->nullable();
+            $table->string('pilihan_benar')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJenisgalerisTable extends Migration
+class CreateDaftarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateJenisgalerisTable extends Migration
      */
     public function up()
     {
-        Schema::create('jenisgaleris', function (Blueprint $table) {
+        // protected $fillable = ['id_soal', 'id_user', 'status_daftar'];
+        Schema::create('daftars', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama_jenis_gambar');
+            $table->integer('id_soal');
+            $table->integer('id_user');
+            $table->integer('status_daftar')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateJenisgalerisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jenisgaleris');
+        Schema::dropIfExists('daftars');
     }
 }

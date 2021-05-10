@@ -1,0 +1,62 @@
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#content{
+    margin-top: 80px;
+}
+
+.router-link-exact-active{
+    font-weight: bold;
+}
+
+.card{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.table{
+    font-size: 12px;
+}
+
+.canvas_grafik{
+  height:350px !important;
+}
+
+.jumbotron{
+    background-color: #fff;
+}
+
+.a_none{
+    text-decoration: none;
+    color: #333;
+}
+
+.a_none:hover{
+    text-decoration: none;
+    color:#333;
+}
+
+ .pilihan_jawaban{
+     margin-bottom: 10px;
+ }
+
+ .pagination>li>a,
+ .pagination>li>span {
+     color: #333; // use your own color here
+ }
+
+ .pagination>.active>a,
+ .pagination>.active>a:focus,
+ .pagination>.active>a:hover,
+ .pagination>.active>span,
+ .pagination>.active>span:focus,
+ .pagination>.active>span:hover {
+     background-color: #333;
+     border-color: #333;
+ }
+
+ .page-item.active .page-link {
+     background-color: #333;
+     border-color: #333;
+ }

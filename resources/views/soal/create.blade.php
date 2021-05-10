@@ -35,18 +35,6 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id_galeri">Tampilan Soal Objektif</label>
-                                    <select class="form-control" id="select2" name="id_galeri">
-                                        @foreach ($galeri as $galeri)
-                                            @if ($galeri->jumlah_gambar > 3)
-                                                <option value="{{ $galeri->id_jenisgaleris }}">
-                                                    {{ $galeri->nama_jenisgaleris }} ({{ $galeri->jumlah_gambar }})
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="materi_file">Materi File</label><br />
                                     <input type="file" id="materi_file" name="materi_file">
                                     <p><i>Kosongkan jika tidak memiliki materi file.</i></p>

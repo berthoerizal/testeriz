@@ -44,12 +44,24 @@ class TanyaController extends Controller
     {
         $request->validate([
             'pertanyaan' => 'required',
-            'jawaban' => 'required',
             'pilihan1' => 'required',
             'pilihan2' => 'required',
             'pilihan3' => 'required',
+            'pilihan4' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        if ($request->jawaban == "pilihan1") {
+            $jawaban_benar = $request->pilihan1;
+        } elseif ($request->jawaban == "pilihan2") {
+            $jawaban_benar = $request->pilihan2;
+        } elseif ($request->jawaban == "pilihan3") {
+            $jawaban_benar = $request->pilihan3;
+        } elseif ($request->jawaban == "pilihan4") {
+            $jawaban_benar = $request->pilihan4;
+        } else {
+            $jawaban_benar = NULL;
+        }
 
         if ($request->hasFile('gambar')) {
             $resorce  = $request->file('gambar');
@@ -60,10 +72,12 @@ class TanyaController extends Controller
             $tanya = Tanya::create([
                 'id_soal' => $request->id_soal,
                 'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $request->jawaban,
+                'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
                 'pilihan2' => $request->pilihan2,
                 'pilihan3' => $request->pilihan3,
+                'pilihan4' => $request->pilihan4,
+                'pilihan_benar' => $request->jawaban,
                 'gambar' => $gambar
             ]);
         } else {
@@ -71,10 +85,12 @@ class TanyaController extends Controller
             $tanya = Tanya::create([
                 'id_soal' => $request->id_soal,
                 'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $request->jawaban,
+                'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
                 'pilihan2' => $request->pilihan2,
                 'pilihan3' => $request->pilihan3,
+                'pilihan4' => $request->pilihan4,
+                'pilihan_benar' => $request->jawaban,
                 'gambar' => $gambar
             ]);
         }
@@ -121,12 +137,24 @@ class TanyaController extends Controller
     {
         $request->validate([
             'pertanyaan' => 'required',
-            'jawaban' => 'required',
             'pilihan1' => 'required',
             'pilihan2' => 'required',
             'pilihan3' => 'required',
+            'pilihan4' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        if ($request->jawaban == "pilihan1") {
+            $jawaban_benar = $request->pilihan1;
+        } elseif ($request->jawaban == "pilihan2") {
+            $jawaban_benar = $request->pilihan2;
+        } elseif ($request->jawaban == "pilihan3") {
+            $jawaban_benar = $request->pilihan3;
+        } elseif ($request->jawaban == "pilihan4") {
+            $jawaban_benar = $request->pilihan4;
+        } else {
+            $jawaban_benar = NULL;
+        }
 
         if ($request->hasFile('gambar')) {
             $resorce  = $request->file('gambar');
@@ -141,10 +169,12 @@ class TanyaController extends Controller
             $tanya->update([
                 'id_soal' => $request->id_soal,
                 'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $request->jawaban,
+                'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
                 'pilihan2' => $request->pilihan2,
                 'pilihan3' => $request->pilihan3,
+                'pilihan4' => $request->pilihan4,
+                'pilihan_benar' => $request->jawaban,
                 'gambar' => $gambar
             ]);
 
@@ -160,10 +190,12 @@ class TanyaController extends Controller
             $tanya->update([
                 'id_soal' => $request->id_soal,
                 'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $request->jawaban,
+                'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
                 'pilihan2' => $request->pilihan2,
                 'pilihan3' => $request->pilihan3,
+                'pilihan4' => $request->pilihan4,
+                'pilihan_benar' => $request->jawaban,
             ]);
 
             if (!$tanya) {

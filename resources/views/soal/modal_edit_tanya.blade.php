@@ -33,30 +33,39 @@
                                 <p><i>Kosongkan jika tidak/sudah memiliki gambar.</i></p>
                             </div>
                             <div class="form-group">
-                                <label for="jawaban">Jawaban Benar</label>
-                                <input type="text" class="form-control form-control-sm" name="jawaban" id="jawaban"
-                                    placeholder="Jawaban Benar" value="{{ $tanya->jawaban }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="pilihan1">Jawaban Salah</label>
+                                <label for="pilihan1">Opsi 1</label>
                                 <input type="text" class="form-control form-control-sm" name="pilihan1" id="pilihan1"
-                                    placeholder="Jawaban Salah" value="{{ $tanya->pilihan1 }}" required>
+                                    placeholder="Opsi 1" value="{{ $tanya->pilihan1 }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="pilihan2">Jawaban Salah</label>
+                                <label for="pilihan2">Opsi 2</label>
                                 <input type="text" class="form-control form-control-sm" name="pilihan2" id="pilihan2"
-                                    placeholder="Jawaban Salah" value="{{ $tanya->pilihan2 }}" required>
+                                    placeholder="Opsi 2" value="{{ $tanya->pilihan2 }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="pilihan3">Jawaban Salah</label>
+                                <label for="pilihan3">Opsi 3</label>
                                 <input type="text" class="form-control form-control-sm" name="pilihan3" id="pilihan3"
-                                    placeholder="Jawaban Salah" value="{{ $tanya->pilihan3 }}" required>
+                                    placeholder="Opsi 3" value="{{ $tanya->pilihan3 }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pilihan3">Opsi 4</label>
+                                <input type="text" class="form-control form-control-sm" name="pilihan4" id="pilihan4"
+                                    placeholder="Opsi 4" value="{{ $tanya->pilihan4 }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="jawaban_benar">Pilih Jawaban Benar</label>
+                                <select name="jawaban" class="form-control form-control-sm">
+                                    <option value="pilihan1" @if ($tanya->pilihan_benar == 'pilihan1') selected @endif>Opsi 1</option>
+                                    <option value="pilihan2" @if ($tanya->pilihan_benar == 'pilihan2') selected @endif>Opsi 2</option>
+                                    <option value="pilihan3" @if ($tanya->pilihan_benar == 'pilihan3') selected @endif>Opsi 3</option>
+                                    <option value="pilihan4" @if ($tanya->pilihan_benar == 'pilihan4') selected @endif>Opsi 4</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                 </div>
             </form>

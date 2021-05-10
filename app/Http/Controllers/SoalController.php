@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Soal;
+use App\Daftar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -21,7 +22,7 @@ class SoalController extends Controller
      */
     public function index()
     {
-        $title = "Buat Soal";
+        $title = "Soal";
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
@@ -38,12 +39,7 @@ class SoalController extends Controller
     public function create()
     {
         $title = "Tambah Soal";
-        $galeri = DB::table('galeris')
-            ->leftJoin('jenisgaleris', 'galeris.id_jenis_gambar', '=', 'jenisgaleris.id')
-            ->select('jenisgaleris.id as id_jenisgaleris', 'jenisgaleris.nama_jenis_gambar as nama_jenisgaleris', DB::raw('count(galeris.id) as jumlah_gambar'))
-            ->groupBy('galeris.id_jenis_gambar')
-            ->get();
-        return view('soal.create', ['title' => $title, 'galeri' => $galeri]);
+        return view('soal.create', ['title' => $title]);
     }
 
     /**
@@ -66,7 +62,6 @@ class SoalController extends Controller
 
             $soal = Soal::create([
                 'id_user' => Auth::user()->id,
-                'id_galeri' => $request->id_galeri,
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'pass_soal' => Str::random(8),
@@ -82,7 +77,6 @@ class SoalController extends Controller
             $materi_file = NULL;
             $soal = Soal::create([
                 'id_user' => Auth::user()->id,
-                'id_galeri' => $request->id_galeri,
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'pass_soal' => Str::random(8),
@@ -114,11 +108,10 @@ class SoalController extends Controller
      */
     public function show($id)
     {
-        $title = "Detail Soal";
+        $title = "Info Soal";
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
-            ->join('jenisgaleris', 'soals.id_galeri', '=', 'jenisgaleris.id')
-            ->select('soals.*', 'users.name', 'jenisgaleris.nama_jenis_gambar')
+            ->select('soals.*', 'users.name')
             ->where('soals.id', $id)
             ->first();
 
@@ -127,7 +120,22 @@ class SoalController extends Controller
             ->where('id_soal', $id)
             ->get();
 
-        return view('soal.show', ['title' => $title, 'soal' => $soal, 'tanya' => $tanya]);
+        $daftar = DB::table('daftars')
+            ->where('id_user', Auth::user()->id)
+            ->where('id_soal', $id)
+            ->first();
+
+        if (!$daftar) {
+            $cek_daftar = 0;
+        } else {
+            if ($daftar->status_daftar == 1) {
+                $cek_daftar = 1;
+            } else {
+                $cek_daftar = 2;
+            }
+        }
+
+        return view('soal.show', ['title' => $title, 'soal' => $soal, 'tanya' => $tanya, 'cek_daftar' => $cek_daftar]);
     }
 
     /**
@@ -140,12 +148,7 @@ class SoalController extends Controller
     {
         $title = "Edit Soal";
         $soal = Soal::find($id);
-        $galeri = DB::table('galeris')
-            ->leftJoin('jenisgaleris', 'galeris.id_jenis_gambar', '=', 'jenisgaleris.id')
-            ->select('jenisgaleris.id as id_jenisgaleris', 'jenisgaleris.nama_jenis_gambar as nama_jenisgaleris', DB::raw('count(galeris.id) as jumlah_gambar'))
-            ->groupBy('galeris.id_jenis_gambar')
-            ->get();
-        return view('soal.edit', ['title' => $title, 'galeri' => $galeri, 'soal' => $soal]);
+        return view('soal.edit', ['title' => $title, 'soal' => $soal]);
     }
 
     /**
@@ -173,7 +176,6 @@ class SoalController extends Controller
 
             $soal->update([
                 'id_user' => Auth::user()->id,
-                'id_galeri' => $request->id_galeri,
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'status_soal' => $request->status_soal,
@@ -196,7 +198,6 @@ class SoalController extends Controller
             $soal = Soal::find($id);
             $soal->update([
                 'id_user' => Auth::user()->id,
-                'id_galeri' => $request->id_galeri,
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'status_soal' => $request->status_soal,
@@ -231,6 +232,8 @@ class SoalController extends Controller
         $soal->delete();
 
         DB::table('tanyas')->where('id_soal', $id)->delete();
+        DB::table('daftars')->where('id_soal', $id)->delete();
+        DB::table('jawabs')->where('id_soal', $id)->delete();
 
         if (!$soal) {
             session()->flash('error', 'Data gagal dihapus');

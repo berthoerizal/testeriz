@@ -32,30 +32,39 @@
                                 <p><i>Kosongkan jika tidak memiliki gambar.</i></p>
                             </div>
                             <div class="form-group">
-                                <label for="jawaban">Jawaban Benar</label>
-                                <input type="text" class="form-control form-control-sm" name="jawaban" id="jawaban"
-                                    placeholder="Jawaban Benar" value="{{ old('jawaban') }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="pilihan1">Jawaban Salah</label>
+                                <label for="pilihan1">Opsi 1</label>
                                 <input type="text" class="form-control form-control-sm" name="pilihan1" id="pilihan1"
-                                    placeholder="Jawaban Salah" value="{{ old('pilihan1') }}" required>
+                                    placeholder="Opsi 1" value="{{ old('pilihan1') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="pilihan2">Jawaban Salah</label>
+                                <label for="pilihan2">Opsi 2</label>
                                 <input type="text" class="form-control form-control-sm" name="pilihan2" id="pilihan2"
-                                    placeholder="Jawaban Salah" value="{{ old('pilihan2') }}" required>
+                                    placeholder="Opsi 2" value="{{ old('pilihan2') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="pilihan3">Jawaban Salah</label>
+                                <label for="pilihan3">Opsi 3</label>
                                 <input type="text" class="form-control form-control-sm" name="pilihan3" id="pilihan3"
-                                    placeholder="Jawaban Salah" value="{{ old('pilihan3') }}" required>
+                                    placeholder="Opsi 3" value="{{ old('pilihan3') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pilihan3">Opsi 4</label>
+                                <input type="text" class="form-control form-control-sm" name="pilihan4" id="pilihan4"
+                                    placeholder="Opsi 4" value="{{ old('pilihan4') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="jawaban_benar">Pilih Jawaban Benar</label>
+                                <select name="jawaban" class="form-control form-control-sm">
+                                    <option value="pilihan1">Opsi 1</option>
+                                    <option value="pilihan2">Opsi 2</option>
+                                    <option value="pilihan3">Opsi 3</option>
+                                    <option value="pilihan4">Opsi 4</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                 </div>
             </form>

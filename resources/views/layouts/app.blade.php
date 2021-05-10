@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>TESTERIZ</title>
+    <title>{{ $title }} | Testeriz</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -41,7 +41,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="{{ route('dashboard') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -80,21 +81,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('galeri.index') }}">
-                    <i class="fa fa-image"></i>
-                    <span>Galeri</span></a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('soal.index') }}">
                     <i class="fa fa-question"></i>
-                    <span>Buat Soal</span></a>
+                    <span>Soal</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('ujian.index') }}">
                     <i class="fas fa-lightbulb"></i>
-                    <span>Ikuti Ujian</span></a>
+                    <span>Ujian</span></a>
             </li>
 
             <li class="nav-item">
