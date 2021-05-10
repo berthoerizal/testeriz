@@ -1,7 +1,14 @@
-<a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{ $tanya->id }}">
-    <i class="fa fa-trash-alt"></i>
-    Hapus
-</a>
+@if ($soal->status_soal == 'draft')
+    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{ $tanya->id }}">
+        <i class="fa fa-trash-alt"></i>
+        Hapus
+    </a>
+@else
+    <a class="btn btn-danger btn-sm disabled" href="#"">
+    <i class=" fa fa-trash-alt"></i>
+        Hapus
+    </a>
+@endif
 <!-- Tambah Modal-->
 <div class="modal fade" id="deleteModal{{ $tanya->id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -17,7 +24,7 @@
                 <p>Yakin ingin menghapus pertanyaan ini?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
                 <form action="{{ route('tanya.destroy', $tanya->id) }}" method="POST">
                     @method('DELETE')
                     @csrf

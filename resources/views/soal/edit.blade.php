@@ -29,8 +29,8 @@
                                 <div class="form-group">
                                     <label for="status_soal">Status Soal</label>
                                     <select class="form-control" id="status_soal" name="status_soal">
-                                        <option value="publish" @if ($soal->status_soal == 'publish') selected @endif>Publish</option>
                                         <option value="draft" @if ($soal->status_soal == 'draft') selected @endif>Draft</option>
+                                        <option value="publish" @if ($soal->status_soal == 'publish') selected @endif>Publish</option>
                                     </select>
                                 </div>
                             </div>

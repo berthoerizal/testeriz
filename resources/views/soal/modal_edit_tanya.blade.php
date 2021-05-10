@@ -1,7 +1,14 @@
-<a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{ $tanya->id }}">
-    <i class="fa fa-pencil-alt"></i>
-    Edit
-</a>
+@if ($soal->status_soal == 'draft')
+    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{ $tanya->id }}">
+        <i class="fa fa-pencil-alt"></i>
+        Edit
+    </a>
+@else
+    <a class="btn btn-primary btn-sm disabled" href="#">
+        <i class="fa fa-pencil-alt"></i>
+        Edit
+    </a>
+@endif
 <!-- Tambah Modal-->
 <div class="modal fade" id="editModal{{ $tanya->id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -30,7 +37,6 @@
                             <div class="form-group">
                                 <label for="gambar">Gambar</label><br />
                                 <input type="file" id="gambar" name="gambar">
-                                <p><i>Kosongkan jika tidak/sudah memiliki gambar.</i></p>
                             </div>
                             <div class="form-group">
                                 <label for="pilihan1">Opsi 1</label>

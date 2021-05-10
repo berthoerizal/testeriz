@@ -7,6 +7,7 @@ use App\Soal;
 use App\Tanya;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class TanyaController extends Controller
 {
@@ -97,10 +98,10 @@ class TanyaController extends Controller
 
         if (!$tanya) {
             session()->flash('error', 'Data gagal ditambah');
-            return redirect(route('soal.show', $request->id_soal));
+            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
         } else {
             session()->flash('success', 'Data berhasil ditambah');
-            return redirect(route('soal.show', $request->id_soal));
+            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
         }
     }
 
@@ -180,10 +181,10 @@ class TanyaController extends Controller
 
             if (!$tanya) {
                 session()->flash('error', 'Data gagal diubah');
-                return redirect(route('soal.show', $request->id_soal));
+                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
             } else {
                 session()->flash('success', 'Data berhasil diubah');
-                return redirect(route('soal.show', $request->id_soal));
+                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
             }
         } else {
             $tanya = Tanya::find($id);
@@ -200,10 +201,10 @@ class TanyaController extends Controller
 
             if (!$tanya) {
                 session()->flash('error', 'Data gagal diubah');
-                return redirect(route('soal.show', $request->id_soal));
+                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
             } else {
                 session()->flash('success', 'Data berhasil diubah');
-                return redirect(route('soal.show', $request->id_soal));
+                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
             }
         }
     }
@@ -225,10 +226,10 @@ class TanyaController extends Controller
 
         if (!$tanya) {
             session()->flash('error', 'Data gagal dihapus');
-            return redirect(route('soal.show', $request->id_soal));
+            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
         } else {
             session()->flash('success', 'Data berhasil dihapus');
-            return redirect(route('soal.show', $request->id_soal));
+            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
         }
     }
 }

@@ -28,8 +28,8 @@
                                 <div class="form-group">
                                     <label for="status_soal">Status Soal</label>
                                     <select class="form-control" id="status_soal" name="status_soal">
-                                        <option value="publish">Publish</option>
                                         <option value="draft">Draft</option>
+                                        <option value="publish">Publish</option>
                                     </select>
                                 </div>
                             </div>

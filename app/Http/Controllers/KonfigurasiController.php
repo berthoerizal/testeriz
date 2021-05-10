@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Konfigurasi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class KonfigurasiController extends Controller
 {
@@ -19,13 +20,17 @@ class KonfigurasiController extends Controller
      */
     public function index()
     {
-        $konfig = DB::table('konfigurasis')->first();
-        $title = "Konfigurasi";
+        if (Auth::user()->id_role == 21) {
+            $konfig = DB::table('konfigurasis')->first();
+            $title = "Konfigurasi";
 
-        return view('konfigurasi.index', [
-            'title' => $title,
-            'konfig' => $konfig
-        ]);
+            return view('konfigurasi.index', [
+                'title' => $title,
+                'konfig' => $konfig
+            ]);
+        } else {
+            return abort(404);
+        }
     }
 
     /**

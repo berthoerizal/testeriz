@@ -1,4 +1,4 @@
-<a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{ $soal->id }}">
+<a class="btn btn-danger btn-sm mt-2" href="#" data-toggle="modal" data-target="#deleteModal{{ $soal->id }}">
     <i class="fa fa-trash-alt"></i>
     Hapus
 </a>
@@ -17,7 +17,7 @@
                 <p>Yakin ingin menghapus <b>{{ $soal->judul_soal }}</b> ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
                 <form action="{{ route('soal.destroy', $soal->id) }}" method="POST">
                     @method('DELETE')
                     @csrf

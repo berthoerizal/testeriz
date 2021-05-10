@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Konfigurasi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -20,7 +23,17 @@ class DashboardController extends Controller
     {
         $title = "Dashboard";
         $user_count = User::all()->count();
-        return view('dashboard', ['title' => $title, 'user_count' => $user_count]);
+        $soal_count = DB::table('soals')->where('id_user', Auth::user()->id)->count();
+        $ujian_count = DB::table('daftars')->where('id_user', Auth::user()->id)->count();
+        $konfig = Konfigurasi::first();
+        $ujians = DB::table('soals')
+            ->join('users', 'soals.id_user', '=', 'users.id')
+            ->select('soals.*', 'users.name')
+            ->where('id_user', '!=', Auth::user()->id)
+            ->where('status_soal', 'publish')
+            ->take(3)
+            ->get();
+        return view('dashboard', ['title' => $title, 'user_count' => $user_count, 'soal_count' => $soal_count, 'ujian_count' => $ujian_count, 'konfig' => $konfig, 'ujians' => $ujians]);
     }
 
     /**

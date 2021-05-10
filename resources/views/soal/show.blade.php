@@ -8,7 +8,7 @@
         @include('partial.message')
 
         <!-- Page Heading -->
-        @if ($soal->id_user == Auth::user()->id)
+        @if ($soal->id_user == $user->id)
             <h1 class="h3 mb-2 text-gray-800">Info Soal</h1>
         @else
             <h1 class="h3 mb-2 text-gray-800">Info Ujian</h1>
@@ -36,7 +36,7 @@
                 <div class="card shadow col-md-12 mb-3">
                     <div class="card-header">
                         Detail Informasi
-                        @if ($soal->id_user == Auth::user()->id)
+                        @if ($soal->id_user == $user->id)
                             Soal
                         @else
                             Ujian
@@ -66,7 +66,7 @@
                                         <td><i class="fa fa-star"></i> Judul</td>
                                         <td><b>{{ $soal->judul_soal }}</b></td>
                                     </tr>
-                                    @if ($soal->id_user == Auth::user()->id)
+                                    @if ($soal->id_user == $user->id)
                                         <tr>
                                             <td><i class="fa fa-newspaper"></i> Status</td>
                                             <td>
@@ -106,7 +106,7 @@
                                     </tr>
                                     <tr>
                                         <td><i class="fa fa-key"></i> Password
-                                            @if ($soal->id_user == Auth::user()->id)
+                                            @if ($soal->id_user == $user->id)
                                                 Soal
                                             @else
                                                 Ujian
@@ -120,12 +120,16 @@
                     </div>
                     <div class="card-footer">
                         <span class="float-right">
-                            @if ($soal->id_user == Auth::user()->id)
+                            @if ($soal->id_user == $user->id)
                                 @include('soal.delete')
-                                <a class="btn btn-primary btn-sm" href="{{ route('soal.edit', $soal->id) }}">
+                                <a class="btn btn-primary btn-sm mt-2"
+                                    href="{{ route('soal.edit', Crypt::encrypt($soal->id)) }}">
                                     <i class="fa fa-pencil-alt"></i>
                                     Edit
                                 </a>
+                                <a href="{{ route('nilai_peserta', $soal->id) }}" class="btn btn-primary btn-sm mt-2"><i
+                                        class="fa fa-trophy"></i>
+                                    Nilai</a>
                                 @include('soal.modal_create_tanya')
                             @else
                                 @if ($cek_daftar == 0)
@@ -135,8 +139,14 @@
                                             class="fa fa-arrow-right"></i>
                                         Masuk
                                         Ujian</a>
+                                @elseif($cek_daftar==2)
+                                    <a class="btn btn-primary btn-sm"
+                                        href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => $user->id]) }}">
+                                        <i class="fa fa-trophy"></i>
+                                        Nilai
+                                    </a>
                                 @else
-                                    <p>Ujian Telah Selesai</p>
+                                    <p style="color: red;">Data tidak ditemukan.</p>
                                 @endif
                             @endif
                         </span>
@@ -145,12 +155,12 @@
                 </div>
             </div>
 
-            @if ($soal->id_user == Auth::user()->id)
+            @if ($soal->id_user == $user->id)
                 <div class="col-md-12">
                     <div class="card shadow col-md-12 mb-4">
                         <div class="card-header">
                             <div class="float-left">
-                                Pertanyaan Soal
+                                Pertanyaan & Kunci Jawaban Soal
                             </div>
                         </div>
                         <div class="card-body">
@@ -161,7 +171,7 @@
                                             <th width="5%">#</th>
                                             <th width="10%" class="text-center">Gambar</th>
                                             <th>Pertanyaan</th>
-                                            <th>Jawaban</th>
+                                            <th>Jawaban Benar</th>
                                             <th width="20%" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -203,17 +213,4 @@
     <!-- /.container-fluid -->
     </div>
     <!-- End of Main Content -->
-    <script>
-        function previewImg() {
-            const gambar = document.querySelector('#gambar');
-            const imgPreview = document.querySelector('.img-preview');
-            const fileGambar = new FileReader();
-            fileGambar.readAsDataURL(gambar.files[0]);
-
-            fileGambar.onload = function(e) {
-                imgPreview.src = e.target.result;
-            }
-        }
-
-    </script>
 @endsection

@@ -9,6 +9,8 @@ use App\Soal;
 use App\Tanya;
 use App\Daftar;
 use App\jawab;
+use App\Nilai;
+use App\User;
 
 class UjianController extends Controller
 {
@@ -23,7 +25,7 @@ class UjianController extends Controller
      */
     public function index()
     {
-        $title = "Ujian";
+        $title = "Ikuti Ujian";
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
@@ -76,7 +78,15 @@ class UjianController extends Controller
     {
         $title = "Tunggu Ujian";
         $soal = Soal::find($id);
-        return view('ujian.tunggu_ujian', ['title' => $title, 'soal' => $soal]);
+        $cek_daftar = DB::table('daftars')
+            ->where('id_soal', $id)
+            ->where('id_user', Auth::user()->id)
+            ->first();
+        if ($cek_daftar->status_daftar == 1) {
+            return view('ujian.tunggu_ujian', ['title' => $title, 'soal' => $soal]);
+        } else {
+            return abort(404);
+        }
     }
 
     public function jawab_ujian($id)
@@ -93,7 +103,16 @@ class UjianController extends Controller
             ->where('id_user', Auth::user()->id)
             ->paginate(1);
 
-        return view('ujian.jawab_ujian', ['data' => $data, 'soal' => $soal, 'title' => $title, 'jawab' => $jawab]);
+        $cek_daftar = DB::table('daftars')
+            ->where('id_soal', $id)
+            ->where('id_user', Auth::user()->id)
+            ->first();
+
+        if ($cek_daftar->status_daftar == 1) {
+            return view('ujian.jawab_ujian', ['data' => $data, 'soal' => $soal, 'title' => $title, 'jawab' => $jawab]);
+        } else {
+            return abort(404);
+        }
         // return view('ujian.jawab_ujian', compact('data'));
     }
 
@@ -123,7 +142,34 @@ class UjianController extends Controller
 
     public function selesai_ujian($id_soal)
     {
-        //
+        $update_daftars = DB::table('daftars')
+            ->where('id_user', Auth::user()->id)
+            ->where('id_soal', $id_soal)
+            ->update(array('status_daftar' => 2));
+
+        $count_jawabs = DB::table('jawabs')
+            ->where('id_user', Auth::user()->id)
+            ->where('id_soal', $id_soal)
+            ->where('status_jawab', 1)
+            ->count();
+
+        $count_tanyas = DB::table('tanyas')
+            ->where('id_soal', $id_soal)
+            ->count();
+
+        $total_nilai = ($count_jawabs / $count_tanyas) * 100;
+
+        $user = User::find(Auth::user()->id);
+
+        $create_nilais = Nilai::create([
+            'id_user' => $user->id,
+            'id_soal' => $id_soal,
+            'jumlah_pertanyaan' => $count_tanyas,
+            'jawaban_benar' => $count_jawabs,
+            'total_nilai' => $total_nilai
+        ]);
+
+        return redirect(route('detail_nilai', ['id_soal' => $id_soal, 'id_user' => $user->id]));
     }
 
     /**

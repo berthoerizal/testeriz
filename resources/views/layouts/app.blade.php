@@ -30,6 +30,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/jqueryui/jquery-ui.min.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+    <link rel="stylesheet" href="{{ asset('assets/css/style_admin.css') }}">
 </head>
 
 <body id="page-top">
@@ -64,7 +67,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Layanan
             </div>
 
             <li class="nav-item">
@@ -73,30 +76,33 @@
                     <span>Profile</span></a>
             </li>
 
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.index') }}">
-                    <i class="fa fa-users"></i>
-                    <span>User</span></a>
-            </li>
+            @if (Auth::user()->id_role == 21)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.index') }}">
+                        <i class="fa fa-users"></i>
+                        <span>User</span></a>
+                </li>
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('soal.index') }}">
                     <i class="fa fa-question"></i>
-                    <span>Soal</span></a>
+                    <span>Buat Soal</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('ujian.index') }}">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>Ujian</span></a>
+                    <i class="fa fa-check"></i>
+                    <span>Ikuti Ujian</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('konfigurasi.index') }}">
-                    <i class="fa fa-wrench"></i>
-                    <span>Konfigurasi</span></a>
-            </li>
+            @if (Auth::user()->id_role == 21)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('konfigurasi.index') }}">
+                        <i class="fa fa-wrench"></i>
+                        <span>Konfigurasi</span></a>
+                </li>
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -198,6 +204,11 @@
             <script>
                 $(document).ready(function() {
                     $('#select2').select2();
+                });
+                $('#dataTable1').dataTable({
+                    "bPaginate": false,
+                    "searching": false,
+                    "info": false
                 });
                 tinymce.init({
                     selector: '.textarea-tinymce',

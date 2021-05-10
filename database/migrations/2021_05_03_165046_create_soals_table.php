@@ -27,6 +27,7 @@ class CreateSoalsTable extends Migration
             $table->time('waktu_selesai')->nullable();
             $table->date('tanggal_mulai')->nullable();
             $table->date('tanggal_selesai')->nullable();
+            $table->string('status_nilai')->nullable();
             $table->timestamps();
         });
     }

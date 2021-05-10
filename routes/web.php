@@ -30,7 +30,9 @@ Route::resource('ujian', 'UjianController');
 Route::post('/daftar_ujian', 'UjianController@daftar_ujian')->name('daftar_ujian');
 Route::get('/tunggu_ujian/{id}', ['as' => 'tunggu_ujian', 'uses' => 'UjianController@tunggu_ujian']);
 Route::get('/jawab_ujian/{id}', ['as' => 'jawab_ujian', 'uses' => 'UjianController@jawab_ujian']);
-
 Route::put('soal/{id_soal}/tanya/{id_tanya}', ['as' => 'user_jawab_ujian', 'uses' => 'UjianController@user_jawab_ujian']);
-
 Route::get('soal/{id_soal}/selesai_ujian', ['as' => 'selesai_ujian', 'uses' => 'UjianController@selesai_ujian']);
+Route::get('/nilai_peserta/{id}', ['as' => 'nilai_peserta', 'uses' => 'NilaiController@nilai_peserta']);
+Route::get('soal/{id_soal}/peserta/{id_user}/detail_nilai', ['as' => 'detail_nilai', 'uses' => 'NilaiController@detail_nilai']);
+
+Route::get('/status_nilai/{id}', ['as' => 'status_nilai', 'uses' => 'NilaiController@status_nilai']);

@@ -1,7 +1,14 @@
-<a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#tambahModal">
-    <i class="fa fa-plus"></i>
-    Pertanyaan
-</a>
+@if ($soal->status_soal == 'draft')
+    <a class="btn btn-primary btn-sm mt-2" href="#" data-toggle="modal" data-target="#tambahModal">
+        <i class="fa fa-plus"></i>
+        Pertanyaan
+    </a>
+@else
+    <a class="btn btn-primary btn-sm mt-2 disabled" href="#">
+        <i class="fa fa-plus"></i>
+        Pertanyaan
+    </a>
+@endif
 <!-- Tambah Modal-->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -29,7 +36,6 @@
                             <div class="form-group">
                                 <label for="gambar">Gambar</label><br />
                                 <input type="file" id="gambar" name="gambar">
-                                <p><i>Kosongkan jika tidak memiliki gambar.</i></p>
                             </div>
                             <div class="form-group">
                                 <label for="pilihan1">Opsi 1</label>
