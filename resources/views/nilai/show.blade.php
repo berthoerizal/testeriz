@@ -6,7 +6,7 @@
     <div class="container-fluid">
         @include('partial.message')
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">{{ $soal->judul_soal }}</h1>
+        <h1 class="h3 mb-2 text-gray-800">Nilai Peserta | {{ $soal->judul_soal }}</h1>
         <hr>
 
         @if ($soal->status_nilai == 'draft')
@@ -32,8 +32,8 @@
                 <div class="col-md-9">
                     <div class="card shadow col-md-12 mb-4">
                         <div class="card-header">
-                            <div class="float-right">
-                                Informasi Nilai Pengguna
+                            <div class="float-left">
+                                Informasi Nilai Peserta
                             </div>
                         </div>
 
@@ -42,7 +42,7 @@
                                 <table class="table table-bordered" width="100%" cellspacing="0">
                                     <tbody>
                                         <tr>
-                                            <td><i class="fa fa-user"></i> Dijawab Oleh</td>
+                                            <td><i class="fa fa-user"></i> Nama Peserta</td>
                                             <td>{{ $nilai->nama_peserta }}</td>
                                         </tr>
                                         <tr>
@@ -100,8 +100,7 @@
                                                     <img src="{{ asset('assets/images/imagedefault.png') }}"
                                                         class="img img-responsive img-thumbnail" width="50px">
                                                 @else
-                                                    <img src="{{ asset('assets/images/' . $jawab->gambar) }}"
-                                                        class="img img-responsive img-thumbnail" width="50px">
+                                                    @include('nilai.modal_image')
                                                 @endif
                                             </td>
                                             <td><?php echo $jawab->pertanyaan; ?></td>

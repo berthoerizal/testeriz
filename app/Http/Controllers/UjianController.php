@@ -25,10 +25,19 @@ class UjianController extends Controller
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
-            ->where('id_user', '!=', Auth::user()->id)
-            ->where('status_soal', 'publish')
+            ->where('soals.id_user', '!=', Auth::user()->id)
+            ->where('soals.status_soal', 'publish')
             ->get();
-        return view('ujian.index', ['title' => $title, 'soal' => $soal]);
+
+        $daftars = DB::table('daftars')
+            ->where('id_user', Auth::user()->id)
+            ->get();
+
+        $count_daftars = DB::table('daftars')
+            ->where('id_user', Auth::user()->id)
+            ->count();
+
+        return view('ujian.index', ['title' => $title, 'soal' => $soal, 'daftars' => $daftars, 'count_daftars' => $count_daftars]);
     }
 
     public function daftar_ujian(Request $request)
@@ -40,7 +49,7 @@ class UjianController extends Controller
         $soal = Soal::find($request->id_soal);
         if ($soal->pass_soal != $request->password_ujian) {
             session()->flash('error', 'Gagal melakukan pendaftaran, Password Ujian Salah');
-            return redirect(route('soal.show', $request->id_soal));
+            return redirect(route('soal.show', $soal->slug_soal));
         }
 
         $daftar = Daftar::create([
@@ -63,7 +72,7 @@ class UjianController extends Controller
 
         if (!$daftar) {
             session()->flash('error', 'Gagal melakukan pendaftaran.');
-            return redirect(route('soal.show', $request->id_soal));
+            return redirect(route('soal.show', $soal->slug_soal));
         } else {
             session()->flash('success', 'Berhasil melakukan pendaftaran.');
             return redirect(route('tunggu_ujian', $request->id_soal));

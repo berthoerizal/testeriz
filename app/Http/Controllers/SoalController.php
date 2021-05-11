@@ -93,29 +93,28 @@ class SoalController extends Controller
             return redirect(route('soal.index'));
         } else {
             session()->flash('success', 'Data berhasil ditambah');
-            return redirect(route('soal.show', Crypt::encrypt($soal->id)));
+            return redirect(route('soal.show', $soal->slug_soal));
         }
     }
 
-    public function show($id)
+    public function show($slug_soal)
     {
-        $id = Crypt::decrypt($id);
         $user = User::find(Auth::user()->id);
         $title = "Info Soal";
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
-            ->where('soals.id', $id)
+            ->where('soals.slug_soal', $slug_soal)
             ->first();
 
         $tanya = DB::table('tanyas')
             ->select('tanyas.*')
-            ->where('id_soal', $id)
+            ->where('id_soal', $soal->id)
             ->get();
 
         $daftar = DB::table('daftars')
             ->where('id_user', Auth::user()->id)
-            ->where('id_soal', $id)
+            ->where('id_soal', $soal->id)
             ->first();
 
         if (!$daftar) {
@@ -174,10 +173,10 @@ class SoalController extends Controller
 
             if (!$soal) {
                 session()->flash('error', 'Data gagal diubah');
-                return redirect(route('soal.edit', $id));
+                return redirect(route('soal.edit', Crypt::encrypt($id)));
             } else {
                 session()->flash('success', 'Data berhasil diubah');
-                return redirect(route('soal.show', $id));
+                return redirect(route('soal.show', $soal->slug_soal));
             }
         } else {
             $soal = Soal::find($id);
@@ -198,7 +197,7 @@ class SoalController extends Controller
                 return redirect(route('soal.edit', Crypt::encrypt($id)));
             } else {
                 session()->flash('success', 'Data berhasil diubah');
-                return redirect(route('soal.show', Crypt::encrypt($id)));
+                return redirect(route('soal.show', $soal->slug_soal));
             }
         }
     }

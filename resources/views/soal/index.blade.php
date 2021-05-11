@@ -67,7 +67,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('soal.show', Crypt::encrypt($soal->id)) }}">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('soal.show', $soal->slug_soal) }}">
                                         <i class="fa fa-book"></i>
                                         Info
                                     </a>
