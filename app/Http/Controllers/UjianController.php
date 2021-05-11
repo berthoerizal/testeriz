@@ -9,8 +9,8 @@ use App\Soal;
 use App\Tanya;
 use App\Daftar;
 use App\jawab;
-use App\Nilai;
 use App\User;
+use Illuminate\Support\Facades\Crypt;
 
 class UjianController extends Controller
 {
@@ -18,11 +18,7 @@ class UjianController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $title = "Ikuti Ujian";
@@ -147,94 +143,8 @@ class UjianController extends Controller
             ->where('id_soal', $id_soal)
             ->update(array('status_daftar' => 2));
 
-        $count_jawabs = DB::table('jawabs')
-            ->where('id_user', Auth::user()->id)
-            ->where('id_soal', $id_soal)
-            ->where('status_jawab', 1)
-            ->count();
-
-        $count_tanyas = DB::table('tanyas')
-            ->where('id_soal', $id_soal)
-            ->count();
-
-        $total_nilai = ($count_jawabs / $count_tanyas) * 100;
-
         $user = User::find(Auth::user()->id);
 
-        $create_nilais = Nilai::create([
-            'id_user' => $user->id,
-            'id_soal' => $id_soal,
-            'jumlah_pertanyaan' => $count_tanyas,
-            'jawaban_benar' => $count_jawabs,
-            'total_nilai' => $total_nilai
-        ]);
-
-        return redirect(route('detail_nilai', ['id_soal' => $id_soal, 'id_user' => $user->id]));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect(route('detail_nilai', ['id_soal' => $id_soal, 'id_user' => Crypt::encrypt($user->id)]));
     }
 }

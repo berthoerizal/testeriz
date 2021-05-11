@@ -17,11 +17,7 @@ class SoalController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $title = "Buat Soal";
@@ -33,23 +29,12 @@ class SoalController extends Controller
         return view('soal.index', ['title' => $title, 'soal' => $soal]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $title = "Tambah Soal";
         return view('soal.create', ['title' => $title]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -112,12 +97,6 @@ class SoalController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $id = Crypt::decrypt($id);
@@ -152,12 +131,6 @@ class SoalController extends Controller
         return view('soal.show', ['title' => $title, 'soal' => $soal, 'tanya' => $tanya, 'cek_daftar' => $cek_daftar, 'user' => $user]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
@@ -170,13 +143,6 @@ class SoalController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -237,12 +203,6 @@ class SoalController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $soal = Soal::find($id);
@@ -253,7 +213,6 @@ class SoalController extends Controller
         DB::table('tanyas')->where('id_soal', $id)->delete();
         DB::table('daftars')->where('id_soal', $id)->delete();
         DB::table('jawabs')->where('id_soal', $id)->delete();
-        DB::table('nilais')->where('id_soal', $id)->delete();
 
         if (!$soal) {
             session()->flash('error', 'Data gagal dihapus');

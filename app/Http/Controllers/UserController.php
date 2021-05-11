@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::user()->id_role == 21) {
-            $title = "Users";
+            $title = "Pengguna";
             $users = User::all();
             return view('user.index', ['title' => $title, 'users' => $users]);
         } else {

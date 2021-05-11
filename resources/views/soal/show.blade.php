@@ -132,21 +132,47 @@
                                     Nilai</a>
                                 @include('soal.modal_create_tanya')
                             @else
+
+                                <?php
+                                date_default_timezone_set('Asia/Jakarta');
+                                $jadwal_sekarang = date('Y-m-d H:i:s');
+                                $jadwal_merge = $soal->tanggal_selesai . ' ' . $soal->waktu_selesai;
+                                $jadwal_selesai = date('Y-m-d H:i:s', strtotime($jadwal_merge));
+                                ?>
                                 @if ($cek_daftar == 0)
-                                    @include('ujian.modal_daftar_ujian')
-                                @elseif ($cek_daftar==1)
-                                    <a href="{{ route('tunggu_ujian', [$soal->id]) }}" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-arrow-right"></i>
-                                        Masuk
-                                        Ujian</a>
-                                @elseif($cek_daftar==2)
-                                    <a class="btn btn-primary btn-sm"
-                                        href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => $user->id]) }}">
-                                        <i class="fa fa-trophy"></i>
-                                        Nilai
-                                    </a>
-                                @else
-                                    <p style="color: red;">Data tidak ditemukan.</p>
+                                    <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
+                                        @include('ujian.modal_daftar_ujian') <?php } else { ?> <button type="btn" class="btn btn-danger btn-sm disabled"><i
+                                            class="fa fa-calendar-times"></i> Ujian Telah Selesai</button>
+                                        <a class="btn btn-primary btn-sm"
+                                            href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}">
+                                            <i class="fa fa-trophy"></i>
+                                            Nilai
+                                        </a>
+                                        <?php } ?>
+                                    @elseif ($cek_daftar==1)
+                                        <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
+                                            <a href="{{ route('tunggu_ujian', [$soal->id]) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-calendar-check"></i>
+                                            Masuk
+                                            Ujian</a> <?php } else { ?>
+                                            <button type="btn" class="btn btn-danger btn-sm disabled"><i
+                                                    class="fa fa-calendar-times"></i>
+                                                Ujian Telah Selesai</button>
+                                            <a class="btn btn-primary btn-sm"
+                                                href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}">
+                                                <i class="fa fa-trophy"></i>
+                                                Nilai
+                                            </a>
+                                            <?php } ?>
+                                        @elseif($cek_daftar==2 || $jadwal_sekarang <= $jadwal_selesai) <button
+                                                type="btn" class="btn btn-danger btn-sm disabled"><i
+                                                    class="fa fa-calendar-times"></i>
+                                                Ujian Telah Selesai</button>
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => Crypt::encrypt($user->id)]) }}">
+                                                    <i class="fa fa-trophy"></i>
+                                                    Nilai
+                                                </a>
                                 @endif
                             @endif
                         </span>

@@ -11,6 +11,7 @@ use App\Daftar;
 use App\jawab;
 use App\Nilai;
 use App\User;
+use Illuminate\Support\Facades\Crypt;
 
 class NilaiController extends Controller
 {
@@ -18,43 +19,7 @@ class NilaiController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function nilai_peserta($id)
     {
 
@@ -62,15 +27,20 @@ class NilaiController extends Controller
 
         $title = "Nilai";
 
-        $nilais = DB::table('nilais')
-            ->leftJoin('users', 'nilais.id_user', '=', 'users.id')
-            ->leftJoin('soals', 'nilais.id_soal', '=', 'soals.id')
-            ->select('nilais.*', 'users.name as nama_peserta', 'soals.judul_soal')
-            ->where('nilais.id_soal', $id)
+        $count_tanyas = DB::table('tanyas')
+            ->where('id_soal', $id)
+            ->count();
+
+        $nilais = DB::table('jawabs')
+            ->leftJoin('users', 'jawabs.id_user', '=', 'users.id')
+            ->leftJoin('soals', 'jawabs.id_soal', '=', 'soals.id')
+            ->select('jawabs.*', 'users.name as nama_peserta', 'soals.judul_soal', DB::raw("(sum(status_jawab)/$count_tanyas)*100 as total_nilai, sum(status_jawab) as terjawab"))
+            ->where('jawabs.id_soal', $id)
+            ->groupBy('jawabs.id_user')
             ->get();
 
         if ($soal->id_user == Auth::user()->id) {
-            return view('nilai.index', ['title' => $title, 'soal' => $soal, 'nilais' => $nilais]);
+            return view('nilai.index', ['title' => $title, 'soal' => $soal, 'nilais' => $nilais, 'jumlah_pertanyaan' => $count_tanyas]);
         } else {
             return abort(404);
         }
@@ -78,6 +48,7 @@ class NilaiController extends Controller
 
     public function detail_nilai($id_soal, $id_user)
     {
+        $id_user = Crypt::decrypt($id_user);
         $title = "Info Nilai";
         $jawabs = DB::table('jawabs')
             ->join('tanyas', 'jawabs.id_tanya', '=', 'tanyas.id')
@@ -94,16 +65,21 @@ class NilaiController extends Controller
 
         $user = User::find($id_user);
 
-        $nilai = DB::table('nilais')
-            ->leftJoin('users', 'nilais.id_user', '=', 'users.id')
-            ->leftJoin('soals', 'nilais.id_soal', '=', 'soals.id')
-            ->select('nilais.*', 'users.name as nama_peserta', 'soals.judul_soal')
-            ->where('nilais.id_soal', $id_soal)
-            ->where('nilais.id_user', $id_user)
+        $count_tanyas = DB::table('tanyas')
+            ->where('id_soal', $id_soal)
+            ->count();
+
+        $nilai = DB::table('jawabs')
+            ->leftJoin('users', 'jawabs.id_user', '=', 'users.id')
+            ->leftJoin('soals', 'jawabs.id_soal', '=', 'soals.id')
+            ->select('jawabs.*', 'users.name as nama_peserta', 'soals.judul_soal', DB::raw("(sum(status_jawab)/$count_tanyas)*100 as total_nilai, sum(status_jawab) as terjawab"))
+            ->where('jawabs.id_soal', $id_soal)
+            ->where('jawabs.id_user', $id_user)
+            ->groupBy('jawabs.id_user')
             ->first();
 
         if ($user->id == Auth::user()->id || Auth::user()->id_role == 21) {
-            return view('nilai.show', ['title' => $title, 'jawabs' => $jawabs, 'soal' => $soal, 'nilai' => $nilai, 'user' => $user]);
+            return view('nilai.show', ['title' => $title, 'jawabs' => $jawabs, 'soal' => $soal, 'nilai' => $nilai, 'user' => $user, 'jumlah_pertanyaan' => $count_tanyas]);
         } else {
             return abort(404);
         }
@@ -124,45 +100,11 @@ class NilaiController extends Controller
 
         $soal = Soal::find($id);
         if ($soal->status_nilai == 'draft') {
-            session()->flash('success', 'Nilai tidak bisa dilihat oleh peserta.');
+            session()->flash('success', 'Draft: Nilai tidak bisa dilihat oleh peserta.');
             return redirect(route('nilai_peserta', $id));
         } else {
-            session()->flash('success', 'Nilai bisa dilihat oleh peserta.');
+            session()->flash('success', 'Publish: Nilai bisa dilihat oleh peserta.');
             return redirect(route('nilai_peserta', $id));
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

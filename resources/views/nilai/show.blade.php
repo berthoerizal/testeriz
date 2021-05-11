@@ -43,19 +43,19 @@
                                     <tbody>
                                         <tr>
                                             <td><i class="fa fa-user"></i> Dijawab Oleh</td>
-                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $nilai->nama_peserta }}</td>
                                         </tr>
                                         <tr>
                                             <td><i class="fa fa-star"></i> Judul</td>
-                                            <td><b>{{ $soal->judul_soal }}</b></td>
+                                            <td><b>{{ $nilai->judul_soal }}</b></td>
                                         </tr>
                                         <tr>
                                             <td><i class="fa fa-question"></i> Jumlah Pertanyaan</td>
-                                            <td>{{ $nilai->jumlah_pertanyaan }}</td>
+                                            <td>{{ $jumlah_pertanyaan }}</td>
                                         </tr>
                                         <tr>
                                             <td><i class="fa fa-check"></i> Jumlah Terjawab</td>
-                                            <td>{{ $nilai->jawaban_benar }}</td>
+                                            <td>{{ $nilai->terjawab }}</td>
                                         </tr>
                                         <tr>
                                             <td><i class="fa fa-trophy"></i> Nilai</td>

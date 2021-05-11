@@ -47,13 +47,14 @@
                                     <?php echo $i; ?>
                                 </td>
                                 <td><?php echo $nilai->nama_peserta; ?></td>
-                                <td class="text-center"><?php echo $nilai->jawaban_benar; ?>
+                                <td class="text-center"><?php echo $nilai->terjawab; ?>
                                 </td>
-                                <td class="text-center"><?php echo $nilai->jumlah_pertanyaan; ?></td>
+                                <td class="text-center"><?php echo $jumlah_pertanyaan; ?>
+                                </td>
                                 <td class="text-right"><?php echo number_format($nilai->total_nilai); ?></td>
                                 <td class="text-center">
                                     <a class="btn btn-primary btn-sm"
-                                        href="{{ route('detail_nilai', ['id_soal' => $nilai->id_soal, 'id_user' => $nilai->id_user]) }}">
+                                        href="{{ route('detail_nilai', ['id_soal' => $nilai->id_soal, 'id_user' => Crypt::encrypt($nilai->id_user)]) }}">
                                         <i class="fa fa-book"></i>
                                         Info
                                     </a>

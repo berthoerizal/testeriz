@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="{{ $konfigurasi->desc1 }}">
+    <meta name="author" content="{{ $konfigurasi->author }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title }} | Testeriz</title>
+    <title>{{ $title }} | {{ $konfigurasi->namaweb }}</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -45,11 +45,11 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="{{ route('dashboard') }}">
+                href="{{ route('home.index') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-2">TESTERIZ</div>
+                <div class="sidebar-brand-text mx-2">{{ $konfigurasi->namaweb }}</div>
             </a>
 
             <!-- Divider -->
@@ -80,7 +80,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.index') }}">
                         <i class="fa fa-users"></i>
-                        <span>User</span></a>
+                        <span>Pengguna</span></a>
                 </li>
             @endif
 
@@ -163,7 +163,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Bertho Erizal</span>
+                            <span>Copyright &copy; {{ $konfigurasi->author }} | 2021</span>
                         </div>
                     </div>
                 </footer>
