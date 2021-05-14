@@ -1,12 +1,12 @@
 @if ($soal->status_soal == 'draft')
     <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#tambahModal">
         <i class="fa fa-plus"></i>
-        Pertanyaan
+        Tambah
     </a>
 @else
     <a class="btn btn-primary btn-sm disabled" href="#">
         <i class="fa fa-plus"></i>
-        Pertanyaan
+        Tambah
     </a>
 @endif
 <!-- Tambah Modal-->

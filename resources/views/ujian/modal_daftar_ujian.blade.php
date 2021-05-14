@@ -1,7 +1,14 @@
-<a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#daftarUjian">
-    <i class="fa fa-calendar-check"></i>
-    Daftar Ujian
-</a>
+@if ($count_tanya > 0)
+    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#daftarUjian">
+        <i class="fa fa-calendar-check"></i>
+        Daftar Ujian
+    </a>
+@else
+    <a class="btn btn-primary btn-sm disabled" href="#">
+        <i class="fa fa-calendar-check"></i>
+        Daftar Ujian
+    </a>
+@endif
 <!-- Tambah Modal-->
 <div class="modal fade" id="daftarUjian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

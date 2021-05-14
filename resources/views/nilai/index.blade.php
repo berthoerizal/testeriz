@@ -7,7 +7,7 @@
         @include('partial.message')
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">{{ $title }} Peserta - {{ $soal->judul_soal }}</h1>
+        <h1 class="h3 mb-2 text-gray-800">{{ $title }} - {{ $soal->judul_soal }}</h1>
         <hr>
 
         <!-- DataTales Example -->
@@ -15,12 +15,12 @@
             <div class="card-header py-3">
                 <div class="float-left">
                     @if ($soal->status_nilai == 'publish')
-                        <a href="{{ route('status_nilai', $soal->id) }}" class="btn btn-dark btn-sm"><i
+                        <a href="{{ route('status_nilai', $soal->slug_soal) }}" class="btn btn-dark btn-sm"><i
                                 class="fa fa-bell-slash"></i> <b>Draft</b></a>
                         <a href="" class="btn btn-success btn-sm disabled"><i class="fa fa-bell"></i> <b>Publish</b></a>
                     @else
                         <a href="" class="btn btn-dark btn-sm disabled"><i class="fa fa-bell-slash"></i> <b>Draft</b></a>
-                        <a href="{{ route('status_nilai', $soal->id) }}" class="btn btn-success btn-sm"><i
+                        <a href="{{ route('status_nilai', $soal->slug_soal) }}" class="btn btn-success btn-sm"><i
                                 class="fa fa-bell"></i> <b>Publish</b></a>
                     @endif
                 </div>

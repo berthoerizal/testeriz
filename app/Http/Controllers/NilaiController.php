@@ -20,22 +20,21 @@ class NilaiController extends Controller
         $this->middleware('auth');
     }
 
-    public function nilai_peserta($id)
+    public function nilai_peserta($slug_soal)
     {
-
-        $soal = Soal::find($id);
+        $soal = DB::table('soals')->where('slug_soal', $slug_soal)->first();
 
         $title = "Nilai";
 
         $count_tanyas = DB::table('tanyas')
-            ->where('id_soal', $id)
+            ->where('id_soal', $soal->id)
             ->count();
 
         $nilais = DB::table('jawabs')
             ->leftJoin('users', 'jawabs.id_user', '=', 'users.id')
             ->leftJoin('soals', 'jawabs.id_soal', '=', 'soals.id')
             ->select('jawabs.*', 'users.name as nama_peserta', 'soals.judul_soal', DB::raw("(sum(status_jawab)/$count_tanyas)*100 as total_nilai, sum(status_jawab) as terjawab"))
-            ->where('jawabs.id_soal', $id)
+            ->where('jawabs.id_soal', $soal->id)
             ->groupBy('jawabs.id_user')
             ->get();
 
@@ -85,9 +84,10 @@ class NilaiController extends Controller
         }
     }
 
-    public function status_nilai($id)
+    public function status_nilai($slug_soal)
     {
-        $soal = Soal::find($id);
+        $soals = DB::table('soals')->where('slug_soal', $slug_soal)->first();
+        $soal = Soal::find($soals->id);
         if ($soal->status_nilai == 'draft') {
             $soal->update([
                 'status_nilai' => 'publish'
@@ -98,13 +98,12 @@ class NilaiController extends Controller
             ]);
         }
 
-        $soal = Soal::find($id);
         if ($soal->status_nilai == 'draft') {
             session()->flash('success', 'Draft: Nilai tidak bisa dilihat oleh peserta.');
-            return redirect(route('nilai_peserta', $id));
+            return redirect(route('nilai_peserta', $soal->slug_soal));
         } else {
             session()->flash('success', 'Publish: Nilai bisa dilihat oleh peserta.');
-            return redirect(route('nilai_peserta', $id));
+            return redirect(route('nilai_peserta', $soal->slug_soal));
         }
     }
 }

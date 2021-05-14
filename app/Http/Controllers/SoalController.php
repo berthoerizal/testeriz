@@ -111,6 +111,10 @@ class SoalController extends Controller
             ->select('tanyas.*')
             ->where('id_soal', $soal->id)
             ->get();
+        $count_tanya = DB::table('tanyas')
+            ->select('tanyas.*')
+            ->where('id_soal', $soal->id)
+            ->count();
 
         $daftar = DB::table('daftars')
             ->where('id_user', Auth::user()->id)
@@ -127,7 +131,7 @@ class SoalController extends Controller
             }
         }
 
-        return view('soal.show', ['title' => $title, 'soal' => $soal, 'tanya' => $tanya, 'cek_daftar' => $cek_daftar, 'user' => $user]);
+        return view('soal.show', ['title' => $title, 'soal' => $soal, 'tanya' => $tanya, 'cek_daftar' => $cek_daftar, 'user' => $user, 'count_tanya' => $count_tanya]);
     }
 
     public function edit($id)

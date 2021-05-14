@@ -6,14 +6,14 @@
     <div class="container-fluid">
         @include('partial.message')
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Nilai Peserta | {{ $soal->judul_soal }}</h1>
+        <h1 class="h3 mb-2 text-gray-800">{{ $title }} | {{ $user->name }}</h1>
         <hr>
 
-        @if ($soal->status_nilai == 'draft')
+        @if ($soal->status_nilai == 'draft' && Auth::user()->id_role != '21')
             <div class="alert alert-secondary" role="alert">
                 Nilai belum di-<b>Publish</b> oleh <b>{{ $soal->name }}</b>.
             </div>
-        @else
+        @elseif($soal->status_nilai=='publish' || Auth::user()->id_role=='21')
             <div class="row">
                 <div class="col-md-3 mb-3">
                     <div class="card">
@@ -33,7 +33,7 @@
                     <div class="card shadow col-md-12 mb-4">
                         <div class="card-header">
                             <div class="float-left">
-                                Informasi Nilai Peserta
+                                Informasi Nilai
                             </div>
                         </div>
 

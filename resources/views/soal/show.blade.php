@@ -24,10 +24,10 @@
                                 Pertanyaan
                             </div>
                             <div class="float-right">
-                                <a href="{{ route('nilai_peserta', $soal->id) }}" class="btn btn-warning btn-sm"><i
-                                        class="fa fa-trophy"></i>
-                                    Nilai Peserta</a>
                                 @include('soal.modal_create_tanya')
+                                <a href="{{ route('nilai_peserta', $soal->slug_soal) }}" class="btn btn-warning btn-sm"><i
+                                        class="fa fa-trophy"></i>
+                                    Nilai</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -128,7 +128,7 @@
                                             type="button" class="btn btn-primary btn-sm disabled"><i
                                                 class="fa fa-calendar-check"></i> Daftar Ujian</button>
                                         <button type="button" class="btn btn-warning btn-sm disabled"><i
-                                                class="fa fa-trophy"></i> Nilai Peserta</button>
+                                                class="fa fa-trophy"></i> Nilai</button>
                                         <?php } ?>
                                     @elseif ($cek_daftar==1)
                                         <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
@@ -137,15 +137,15 @@
                                             Masuk
                                             Ujian</a>
                                             <button type="button" class="btn btn-warning btn-sm disabled"><i
-                                                    class="fa fa-trophy"></i> Nilai Peserta</button> <?php }
-                                            else { ?>
+                                                    class="fa fa-trophy"></i> Nilai</button> <?php } else {
+                                            ?>
                                             <button type="btn" class="btn btn-primary btn-sm disabled"><i
                                                     class="fa fa-calendar-check"></i>
                                                 Masuk Ujian</button>
                                             <a class="btn btn-warning btn-sm"
                                                 href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}">
                                                 <i class="fa fa-trophy"></i>
-                                                Nilai Peserta
+                                                Nilai
                                             </a>
                                             <?php } ?>
                                         @elseif($cek_daftar==2 || $jadwal_sekarang <= $jadwal_selesai) <button
@@ -155,7 +155,7 @@
                                                 <a class="btn btn-warning btn-sm"
                                                     href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => Crypt::encrypt($user->id)]) }}">
                                                     <i class="fa fa-trophy"></i>
-                                                    Nilai Peserta
+                                                    Nilai
                                                 </a>
                                 @endif
                             @endif
@@ -199,6 +199,10 @@
                                             </td>
                                         </tr>
                                     @endif
+                                    <tr>
+                                        <td><i class="fa fa-question"></i> Jumlah Pertanyaan</td>
+                                        <td>{{ $count_tanya }}</td>
+                                    </tr>
                                     <tr>
                                         <td><i class="fa fa-calendar"></i> Jadwal Mulai</td>
                                         <td>
