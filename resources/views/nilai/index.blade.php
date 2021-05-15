@@ -14,15 +14,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="float-left">
-                    @if ($soal->status_nilai == 'publish')
-                        <a href="{{ route('status_nilai', $soal->slug_soal) }}" class="btn btn-dark btn-sm"><i
-                                class="fa fa-bell-slash"></i> <b>Draft</b></a>
-                        <a href="" class="btn btn-success btn-sm disabled"><i class="fa fa-bell"></i> <b>Publish</b></a>
-                    @else
-                        <a href="" class="btn btn-dark btn-sm disabled"><i class="fa fa-bell-slash"></i> <b>Draft</b></a>
-                        <a href="{{ route('status_nilai', $soal->slug_soal) }}" class="btn btn-success btn-sm"><i
-                                class="fa fa-bell"></i> <b>Publish</b></a>
-                    @endif
+                    Nilai Peserta Ujian
                 </div>
             </div>
             <div class="card-body">

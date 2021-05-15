@@ -68,8 +68,8 @@
                             Ujian Terbaru
                         </div>
                         <div class="float-right">
-                            <a href="{{ route('ujian.index') }}" class="btn btn-primary btn-sm"><i
-                                    class="fa fa-arrow-right"></i> Lihat Semua</a>
+                            <a href="{{ route('ujian.index') }}" class="btn btn-primary btn-sm">Lihat Semua <i
+                                    class="fa fa-arrow-alt-circle-right"></i></a>
                         </div>
                     </div>
                     <div class="card-body">

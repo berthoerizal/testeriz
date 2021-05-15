@@ -21,19 +21,14 @@ class DashboardController extends Controller
         $user_count = User::all()->count();
         $soal_count = DB::table('soals')->where('id_user', Auth::user()->id)->count();
         $ujian_count = DB::table('daftars')->where('id_user', Auth::user()->id)->count();
-        // $ujians = DB::table('soals')
-        //     ->join('users', 'soals.id_user', '=', 'users.id')
-        //     ->select('soals.*', 'users.name')
-        //     ->where('id_user', '!=', Auth::user()->id)
-        //     ->where('status_soal', 'publish')
-        //     ->take(3)
-        //     ->get();
 
         $ujians = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
             ->where('soals.id_user', '!=', Auth::user()->id)
             ->where('soals.status_soal', 'publish')
+            ->orderBy('soals.id', 'desc')
+            ->take(3)
             ->get();
 
         $daftars = DB::table('daftars')

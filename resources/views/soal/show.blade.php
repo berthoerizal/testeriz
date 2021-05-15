@@ -5,6 +5,16 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
+        <?php
+        date_default_timezone_set('Asia/Jakarta');
+        $jadwal_sekarang = date('Y-m-d H:i:s');
+        $jadwal_selesai_merge = $soal->tanggal_selesai . ' ' . $soal->waktu_selesai;
+        $jadwal_selesai = date('Y-m-d H:i:s', strtotime($jadwal_selesai_merge));
+
+        $jadwal_mulai_merge = $soal->tanggal_mulai . ' ' . $soal->waktu_mulai;
+        $jadwal_mulai = date('Y-m-d H:i:s', strtotime($jadwal_mulai_merge));
+        ?>
+
         @include('partial.message')
 
         <!-- Page Heading -->
@@ -24,7 +34,14 @@
                                 Pertanyaan
                             </div>
                             <div class="float-right">
+                                <?php if ($jadwal_sekarang > $jadwal_mulai) { ?>
+                                <a class="btn btn-primary btn-sm disabled" href="#">
+                                    <i class="fa fa-plus"></i>
+                                    Tambah
+                                </a>
+                                <?php } else { ?>
                                 @include('soal.modal_create_tanya')
+                                <?php } ?>
                                 <a href="{{ route('nilai_peserta', $soal->slug_soal) }}" class="btn btn-warning btn-sm"><i
                                         class="fa fa-trophy"></i>
                                     Nilai</a>
@@ -61,8 +78,18 @@
                                             <td><?php echo $tanya->pertanyaan; ?></td>
                                             <td>{{ $tanya->jawaban }}</td>
                                             <td>
+                                                <?php if ($jadwal_sekarang > $jadwal_mulai) { ?> <a class="btn btn-primary btn-sm disabled" href="#">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm disabled" href="#">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                    Hapus
+                                                </a>
+                                                <?php } else { ?>
                                                 @include('soal.modal_edit_tanya')
                                                 @include('soal.modal_delete_tanya')
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                         <?php $i++;}
@@ -110,48 +137,39 @@
                                 <a class="btn btn-primary btn-sm"
                                     href="{{ route('soal.edit', Crypt::encrypt($soal->id)) }}">
                                     <i class="fa fa-pencil-alt"></i>
-                                    Edit Soal
+                                    Edit
                                 </a>
                             @else
-
-                                <?php
-                                date_default_timezone_set('Asia/Jakarta');
-                                $jadwal_sekarang = date('Y-m-d H:i:s');
-                                $jadwal_merge = $soal->tanggal_selesai . ' ' . $soal->waktu_selesai;
-                                $jadwal_selesai = date('Y-m-d H:i:s', strtotime($jadwal_merge));
-                                ?>
                                 @if ($cek_daftar == 0)
                                     <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
-                                        @include('ujian.modal_daftar_ujian') <button type="button"
+                                        @include('ujian.modal_daftar_ujian') <a href="#"
                                         class="btn btn-primary btn-sm disabled"><i class="fa fa-trophy"></i> Nilai
-                                        Peserta</button><?php } else { ?> <button
-                                            type="button" class="btn btn-primary btn-sm disabled"><i
-                                                class="fa fa-calendar-check"></i> Daftar Ujian</button>
-                                        <button type="button" class="btn btn-warning btn-sm disabled"><i
-                                                class="fa fa-trophy"></i> Nilai</button>
+                                        Peserta</a><?php } else { ?> <a href="#"
+                                            class="btn btn-primary btn-sm disabled"><i class="fa fa-calendar-check"></i>
+                                            Daftar Ujian</a>
+                                        <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
+                                            Nilai</a>
                                         <?php } ?>
                                     @elseif ($cek_daftar==1)
                                         <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
-                                            <a href="{{ route('tunggu_ujian', [$soal->id]) }}"
+                                            <a href="{{ route('tunggu_ujian', ['slug_soal' => $soal->slug_soal]) }}"
                                             class="btn btn-primary btn-sm"><i class="fa fa-calendar-check"></i>
                                             Masuk
                                             Ujian</a>
-                                            <button type="button" class="btn btn-warning btn-sm disabled"><i
-                                                    class="fa fa-trophy"></i> Nilai</button> <?php } else {
-                                            ?>
-                                            <button type="btn" class="btn btn-primary btn-sm disabled"><i
+                                            <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
+                                                Nilai</a> <?php } else { ?>
+                                            <a href="#" class="btn btn-primary btn-sm disabled"><i
                                                     class="fa fa-calendar-check"></i>
-                                                Masuk Ujian</button>
+                                                Masuk Ujian</a>
                                             <a class="btn btn-warning btn-sm"
                                                 href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}">
                                                 <i class="fa fa-trophy"></i>
                                                 Nilai
                                             </a>
                                             <?php } ?>
-                                        @elseif($cek_daftar==2 || $jadwal_sekarang <= $jadwal_selesai) <button
-                                                type="btn" class="btn btn-primary btn-sm disabled"><i
-                                                    class="fa fa-calendar-check"></i>
-                                                Masuk Ujian</button>
+                                        @elseif($cek_daftar==2 || $jadwal_sekarang <= $jadwal_selesai) <a href="#"
+                                                class="btn btn-primary btn-sm disabled"><i class="fa fa-calendar-check"></i>
+                                                Masuk Ujian</a>
                                                 <a class="btn btn-warning btn-sm"
                                                     href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => Crypt::encrypt($user->id)]) }}">
                                                     <i class="fa fa-trophy"></i>
@@ -187,7 +205,7 @@
                                     </tr>
                                     @if ($soal->id_user == $user->id)
                                         <tr>
-                                            <td><i class="fa fa-newspaper"></i> Status</td>
+                                            <td><i class="fa fa-lightbulb"></i> Status Ujian</td>
                                             <td>
                                                 @if ($soal->status_soal == 'publish')
                                                     <b style="color: green;"><?php echo
@@ -195,6 +213,18 @@
                                                 @else
                                                     <b style="color: red;"><?php echo
                                                         ucwords($soal->status_soal); ?></b>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fa fa-trophy"></i> Status Nilai</td>
+                                            <td>
+                                                @if ($soal->status_nilai == 'publish')
+                                                    <b style="color: green;"><?php echo
+                                                        ucwords($soal->status_nilai); ?></b>
+                                                @else
+                                                    <b style="color: red;"><?php echo
+                                                        ucwords($soal->status_nilai); ?></b>
                                                 @endif
                                             </td>
                                         </tr>

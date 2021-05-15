@@ -1,14 +1,7 @@
-@if ($soal->status_soal == 'draft')
-    <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{ $tanya->id }}">
-        <i class="fa fa-trash-alt"></i>
-        Hapus
-    </a>
-@else
-    <a class="btn btn-danger btn-sm disabled" href="#"">
-    <i class=" fa fa-trash-alt"></i>
-        Hapus
-    </a>
-@endif
+<a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{ $tanya->id }}">
+    <i class="fa fa-trash-alt"></i>
+    Hapus
+</a>
 <!-- Tambah Modal-->
 <div class="modal fade" id="deleteModal{{ $tanya->id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -28,7 +21,7 @@
                 <form action="{{ route('tanya.destroy', $tanya->id) }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    <input type="hidden" name="id_soal" value="{{ $soal->id }}" />
+                    <input type="hidden" name="slug_soal" value="{{ $soal->slug_soal }}" />
                     <input class="btn btn-danger btn-sm" type="submit" value="Hapus" />
                 </form>
             </div>

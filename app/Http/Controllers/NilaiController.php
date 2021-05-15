@@ -83,27 +83,4 @@ class NilaiController extends Controller
             return abort(404);
         }
     }
-
-    public function status_nilai($slug_soal)
-    {
-        $soals = DB::table('soals')->where('slug_soal', $slug_soal)->first();
-        $soal = Soal::find($soals->id);
-        if ($soal->status_nilai == 'draft') {
-            $soal->update([
-                'status_nilai' => 'publish'
-            ]);
-        } else {
-            $soal->update([
-                'status_nilai' => 'draft'
-            ]);
-        }
-
-        if ($soal->status_nilai == 'draft') {
-            session()->flash('success', 'Draft: Nilai tidak bisa dilihat oleh peserta.');
-            return redirect(route('nilai_peserta', $soal->slug_soal));
-        } else {
-            session()->flash('success', 'Publish: Nilai bisa dilihat oleh peserta.');
-            return redirect(route('nilai_peserta', $soal->slug_soal));
-        }
-    }
 }

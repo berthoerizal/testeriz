@@ -1,6 +1,6 @@
 <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteSoal{{ $soal->id }}">
     <i class="fa fa-trash-alt"></i>
-    Hapus Soal
+    Hapus
 </a>
 <!-- Tambah Modal-->
 <div class="modal fade" id="deleteSoal{{ $soal->id }}" tabindex="-1" role="dialog"

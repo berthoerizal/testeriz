@@ -43,7 +43,6 @@
                             </div>
                             <div class="col-md-5">
                                 <p><b style="color: #333;">Pilihan Jawaban</b></p>
-                                {{-- route('remindHelper',['event'=>$eventId,'user'=>$userId]); --}}
                                 @foreach ($jawab as $jawab)
                                     <form
                                         action="{{ route('user_jawab_ujian', ['id_soal' => $soal->id, 'id_tanya' => $row->id]) }}"

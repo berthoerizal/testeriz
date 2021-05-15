@@ -21,13 +21,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="judul_soal">Judul Soal</label>
+                                    <label for="judul_soal">Judul</label>
                                     <input type="text" class="form-control" name="judul_soal" id="judul_soal"
-                                        placeholder="Judul Soal" value="{{ old('judul_soal') }}" required>
+                                        placeholder="Judul" value="{{ old('judul_soal') }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="status_soal">Status Soal</label>
+                                    <label for="status_soal">Status Ujian</label>
                                     <select class="form-control" id="status_soal" name="status_soal">
+                                        <option value="draft">Draft</option>
+                                        <option value="publish">Publish</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status_nilai">Status Nilai</label>
+                                    <select class="form-control" id="status_nilai" name="status_nilai">
                                         <option value="draft">Draft</option>
                                         <option value="publish">Publish</option>
                                     </select>
@@ -49,7 +56,7 @@
                                         <input type="text" name="materi_video" id="materi_video"
                                             value="{{ old('materi_video') }}" placeholder="Kode Video Youtube"
                                             class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                                        <p><i>Kosongkan jika tida memiliki materi video.</i></p>
+                                        <p><i>Kosongkan jika tidak memiliki materi video.</i></p>
                                     </div>
                                 </div>
                             </div>

@@ -10,7 +10,7 @@
         </div>
     </div>
     <?php
-    $id_soal = $soal->id;
+    $slug_soal = $soal->slug_soal;
     $tanggal_mulai = $soal->tanggal_mulai;
     $waktu_mulai = $soal->waktu_mulai;
     ?>
@@ -43,7 +43,8 @@
                     // If the count down is over, write some text 
                     if (distance < 0) {
                         clearInterval(x);
-                        window.location.href = "{{ route('jawab_ujian', ['id' => $id_soal]) }}";
+                        window.location.href =
+                            "{{ route('jawab_ujian', ['slug_soal' => $slug_soal]) }}";
                         // document.getElementById('btnSignIn').click(); //kondisi tombol ditekan otomatis
                     }
                 }, 1000);

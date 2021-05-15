@@ -1,14 +1,7 @@
-@if ($soal->status_soal == 'draft')
-    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{ $tanya->id }}">
-        <i class="fa fa-pencil-alt"></i>
-        Edit
-    </a>
-@else
-    <a class="btn btn-primary btn-sm disabled" href="#">
-        <i class="fa fa-pencil-alt"></i>
-        Edit
-    </a>
-@endif
+<a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{ $tanya->id }}">
+    <i class="fa fa-pencil-alt"></i>
+    Edit
+</a>
 <!-- Tambah Modal-->
 <div class="modal fade" id="editModal{{ $tanya->id }}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -23,7 +16,7 @@
             <form action="{{ route('tanya.update', $tanya->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 {{ csrf_field() }}
-                <input type="hidden" name="id_soal" value="{{ $tanya->id_soal }}" />
+                <input type="hidden" name="slug_soal" value="{{ $soal->slug_soal }}" />
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">

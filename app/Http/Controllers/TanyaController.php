@@ -39,6 +39,11 @@ class TanyaController extends Controller
             $jawaban_benar = NULL;
         }
 
+        $soal = DB::table('soals')->where('slug_soal', $request->slug_soal)->first();
+
+        DB::table('daftars')->where('id_soal', $soal->id)->delete();
+        DB::table('jawabs')->where('id_soal', $soal->id)->delete();
+
         if ($request->hasFile('gambar')) {
             $resorce  = $request->file('gambar');
             $gambar   =  time() . "_" . $resorce->getClientOriginalName();
@@ -46,7 +51,7 @@ class TanyaController extends Controller
             $resorce->move(public_path() . '/assets/images', $gambar);
 
             $tanya = Tanya::create([
-                'id_soal' => $request->id_soal,
+                'id_soal' => $soal->id,
                 'pertanyaan' => $request->pertanyaan,
                 'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
@@ -59,7 +64,7 @@ class TanyaController extends Controller
         } else {
             $gambar = NULL;
             $tanya = Tanya::create([
-                'id_soal' => $request->id_soal,
+                'id_soal' => $soal->id,
                 'pertanyaan' => $request->pertanyaan,
                 'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
@@ -73,10 +78,10 @@ class TanyaController extends Controller
 
         if (!$tanya) {
             session()->flash('error', 'Data gagal ditambah');
-            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+            return redirect(route('soal.show', $request->slug_soal));
         } else {
             session()->flash('success', 'Data berhasil ditambah');
-            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+            return redirect(route('soal.show', $request->slug_soal));
         }
     }
 
@@ -103,6 +108,11 @@ class TanyaController extends Controller
             $jawaban_benar = NULL;
         }
 
+        $soal = DB::table('soals')->where('slug_soal', $request->slug_soal)->first();
+
+        DB::table('daftars')->where('id_soal', $soal->id)->delete();
+        DB::table('jawabs')->where('id_soal', $soal->id)->delete();
+
         if ($request->hasFile('gambar')) {
             $resorce  = $request->file('gambar');
             $gambar   =  time() . "_" . $resorce->getClientOriginalName();
@@ -114,7 +124,7 @@ class TanyaController extends Controller
             @unlink($old_image);
 
             $tanya->update([
-                'id_soal' => $request->id_soal,
+                'id_soal' => $soal->id,
                 'pertanyaan' => $request->pertanyaan,
                 'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
@@ -127,15 +137,15 @@ class TanyaController extends Controller
 
             if (!$tanya) {
                 session()->flash('error', 'Data gagal diubah');
-                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+                return redirect(route('soal.show', $request->slug_soal));
             } else {
                 session()->flash('success', 'Data berhasil diubah');
-                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+                return redirect(route('soal.show', $request->slug_soal));
             }
         } else {
             $tanya = Tanya::find($id);
             $tanya->update([
-                'id_soal' => $request->id_soal,
+                'id_soal' => $soal->id,
                 'pertanyaan' => $request->pertanyaan,
                 'jawaban' => $jawaban_benar,
                 'pilihan1' => $request->pilihan1,
@@ -147,16 +157,20 @@ class TanyaController extends Controller
 
             if (!$tanya) {
                 session()->flash('error', 'Data gagal diubah');
-                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+                return redirect(route('soal.show', $request->slug_soal));
             } else {
                 session()->flash('success', 'Data berhasil diubah');
-                return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+                return redirect(route('soal.show', $request->slug_soal));
             }
         }
     }
 
     public function destroy(Request $request, $id)
     {
+        $soal = DB::table('soals')->where('slug_soal', $request->slug_soal)->first();
+        DB::table('daftars')->where('id_soal', $soal->id)->delete();
+        DB::table('jawabs')->where('id_soal', $soal->id)->delete();
+
         $tanya = Tanya::find($id);
         if ($tanya->gambar != 'imagedefault.png') {
             $old_image = public_path() . "/assets/images/" . $tanya->gambar;
@@ -166,10 +180,10 @@ class TanyaController extends Controller
 
         if (!$tanya) {
             session()->flash('error', 'Data gagal dihapus');
-            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+            return redirect(route('soal.show', $request->slug_soal));
         } else {
             session()->flash('success', 'Data berhasil dihapus');
-            return redirect(route('soal.show', Crypt::encrypt($request->id_soal)));
+            return redirect(route('soal.show', $request->slug_soal));
         }
     }
 }

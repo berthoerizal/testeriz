@@ -24,7 +24,8 @@ class SoalController extends Controller
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
-            ->where('id_user', Auth::user()->id)
+            ->orderBy('soals.id', 'desc')
+            ->where('soals.id_user', Auth::user()->id)
             ->get();
         return view('soal.index', ['title' => $title, 'soal' => $soal]);
     }
@@ -61,6 +62,7 @@ class SoalController extends Controller
                 'slug_soal' => Str::slug($request->judul_soal),
                 'pass_soal' => Str::random(8),
                 'status_soal' => $request->status_soal,
+                'status_nilai' => $request->status_nilai,
                 'materi_file' => $materi_file,
                 'materi_video' => $request->materi_video,
                 'tanggal_mulai' => $request->tanggal_mulai,
@@ -77,6 +79,7 @@ class SoalController extends Controller
                 'slug_soal' => Str::slug($request->judul_soal),
                 'pass_soal' => Str::random(8),
                 'status_soal' => $request->status_soal,
+                'status_nilai' => $request->status_nilai,
                 'materi_file' => $materi_file,
                 'materi_video' => $request->materi_video,
                 'tanggal_mulai' => $request->tanggal_mulai,
@@ -167,6 +170,7 @@ class SoalController extends Controller
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'status_soal' => $request->status_soal,
+                'status_nilai' => $request->status_nilai,
                 'materi_file' => $materi_file,
                 'materi_video' => $request->materi_video,
                 'tanggal_mulai' => $request->tanggal_mulai,
@@ -189,6 +193,7 @@ class SoalController extends Controller
                 'judul_soal' => $request->judul_soal,
                 'slug_soal' => Str::slug($request->judul_soal),
                 'status_soal' => $request->status_soal,
+                'status_nilai' => $request->status_nilai,
                 'materi_video' => $request->materi_video,
                 'tanggal_mulai' => $request->tanggal_mulai,
                 'waktu_mulai' => $request->waktu_mulai,
@@ -212,6 +217,12 @@ class SoalController extends Controller
         $old_image = public_path() . "/assets/materi/" . $soal->materi_file;
         @unlink($old_image);
         $soal->delete();
+
+        $tanya_images = DB::table('tanyas')->where('id_soal', $id)->get();
+        foreach ($tanya_images as $image) {
+            $old_image = public_path() . "/assets/materi/" . $image->gambar;
+            @unlink($old_image);
+        }
 
         DB::table('tanyas')->where('id_soal', $id)->delete();
         DB::table('daftars')->where('id_soal', $id)->delete();

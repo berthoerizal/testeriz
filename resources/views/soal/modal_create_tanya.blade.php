@@ -1,14 +1,8 @@
-@if ($soal->status_soal == 'draft')
-    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#tambahModal">
-        <i class="fa fa-plus"></i>
-        Tambah
-    </a>
-@else
-    <a class="btn btn-primary btn-sm disabled" href="#">
-        <i class="fa fa-plus"></i>
-        Tambah
-    </a>
-@endif
+<a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#tambahModal">
+    <i class="fa fa-plus"></i>
+    Tambah
+</a>
+
 <!-- Tambah Modal-->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -22,7 +16,7 @@
             </div>
             <form action="{{ route('tanya.store') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <input type="hidden" name="id_soal" value="{{ $soal->id }}" />
+                <input type="hidden" name="slug_soal" value="{{ $soal->slug_soal }}" />
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
