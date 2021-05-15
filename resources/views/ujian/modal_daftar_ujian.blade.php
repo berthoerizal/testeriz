@@ -1,12 +1,12 @@
 @if ($count_tanya > 0)
     <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#daftarUjian">
-        <i class="fa fa-calendar-check"></i>
-        Daftar Ujian
+        <i class="fa fa-edit"></i>
+        Daftar
     </a>
 @else
     <a class="btn btn-primary btn-sm disabled" href="#">
-        <i class="fa fa-calendar-check"></i>
-        Daftar Ujian
+        <i class="fa fa-edit"></i>
+        Daftar
     </a>
 @endif
 <!-- Tambah Modal-->

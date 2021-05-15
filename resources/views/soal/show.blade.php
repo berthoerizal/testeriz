@@ -145,21 +145,20 @@
                                         @include('ujian.modal_daftar_ujian') <a href="#"
                                         class="btn btn-primary btn-sm disabled"><i class="fa fa-trophy"></i> Nilai
                                         Peserta</a><?php } else { ?> <a href="#"
-                                            class="btn btn-primary btn-sm disabled"><i class="fa fa-calendar-check"></i>
-                                            Daftar Ujian</a>
+                                            class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
+                                            Daftar</a>
                                         <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
                                             Nilai</a>
                                         <?php } ?>
                                     @elseif ($cek_daftar==1)
                                         <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
                                             <a href="{{ route('tunggu_ujian', ['slug_soal' => $soal->slug_soal]) }}"
-                                            class="btn btn-primary btn-sm"><i class="fa fa-calendar-check"></i>
+                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
                                             Masuk
                                             Ujian</a>
                                             <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
                                                 Nilai</a> <?php } else { ?>
-                                            <a href="#" class="btn btn-primary btn-sm disabled"><i
-                                                    class="fa fa-calendar-check"></i>
+                                            <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
                                                 Masuk Ujian</a>
                                             <a class="btn btn-warning btn-sm"
                                                 href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}">
@@ -168,7 +167,7 @@
                                             </a>
                                             <?php } ?>
                                         @elseif($cek_daftar==2 || $jadwal_sekarang <= $jadwal_selesai) <a href="#"
-                                                class="btn btn-primary btn-sm disabled"><i class="fa fa-calendar-check"></i>
+                                                class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
                                                 Masuk Ujian</a>
                                                 <a class="btn btn-warning btn-sm"
                                                     href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => Crypt::encrypt($user->id)]) }}">
