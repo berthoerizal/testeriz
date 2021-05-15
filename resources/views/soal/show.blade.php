@@ -143,8 +143,7 @@
                                 @if ($cek_daftar == 0)
                                     <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
                                         @include('ujian.modal_daftar_ujian') <a href="#"
-                                        class="btn btn-primary btn-sm disabled"><i class="fa fa-trophy"></i> Nilai
-                                        Peserta</a><?php } else { ?> <a href="#"
+                                        class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i> Nilai</a><?php } else { ?> <a href="#"
                                             class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
                                             Daftar</a>
                                         <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
