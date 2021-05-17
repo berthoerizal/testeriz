@@ -91,9 +91,17 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('ujian.index') }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa fa-check"></i>
-                    <span>Ikuti Ujian</span></a>
+                    <span>Ikuti Ujian</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('ujian_sudah_daftar') }}">Sudah Daftar</a>
+                        <a class="collapse-item" href="{{ route('semua_ujian') }}">Semua Ujian</a>
+                    </div>
+                </div>
             </li>
 
             @if (Auth::user()->id_role == 21)

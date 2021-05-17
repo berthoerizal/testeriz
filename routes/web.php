@@ -41,3 +41,6 @@ Route::put('soal/{id_soal}/tanya/{id_tanya}', ['as' => 'user_jawab_ujian', 'uses
 Route::get('soal/{id_soal}/selesai_ujian', ['as' => 'selesai_ujian', 'uses' => 'UjianController@selesai_ujian']);
 Route::get('/nilai_peserta/{id}', ['as' => 'nilai_peserta', 'uses' => 'NilaiController@nilai_peserta']);
 Route::get('soal/{id_soal}/peserta/{id_user}/detail_nilai', ['as' => 'detail_nilai', 'uses' => 'NilaiController@detail_nilai']);
+
+Route::get('/ujian_sudah_daftar', 'UjianController@ujian_sudah_daftar')->name('ujian_sudah_daftar');
+Route::get('/semua_ujian', 'UjianController@semua_ujian')->name('semua_ujian');

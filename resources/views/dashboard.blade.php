@@ -82,7 +82,6 @@
                                         <th>Judul</th>
                                         <th>Jadwal Mulai</th>
                                         <th>Jadwal Selesai</th>
-                                        <th class="text-center">Status</th>
                                         <th width="10%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -114,35 +113,6 @@
                                                 ' ' . $soal->waktu_selesai; ?>
                                             @endif
                                         </td>
-                                        <?php
-                                        $idsoal = $soal->id;
-                                        if ($count_daftars > 0) {
-                                        foreach ($daftars as $daftar) {
-                                        if ($idsoal == $daftar->id_soal) {
-                                        if ($daftar->status_daftar == 1 || $daftar->status_daftar == 2) { ?>
-                                        <td class="text-center" style="background-color: #6AFB71; color:#333;"><b>Sudah
-                                                Daftar</b>
-                                        </td>
-                                        <?php } else { ?>
-                                        <td class="text-center" style="background-color: #E88880; color:#333;"><b>Belum
-                                                Daftar</b>
-                                        </td>
-                                        <?php }
-                                        } else {
-                                        ?>
-                                        <td class="text-center" style="background-color: #E88880; color:#333;"><b>Belum
-                                                Daftar</b>
-                                        </td>
-                                        <?php
-                                        }
-                                        }
-                                        } else {
-                                        ?> <td class="text-center"
-                                            style="background-color: #E88880; color:#333;">
-                                            <b>Belum Daftar</b>
-                                        </td> <?php
-                                        }
-                                        ?>
                                         <td class="text-center">
                                             <a class="btn btn-primary btn-sm"
                                                 href="{{ route('soal.show', $soal->slug_soal) }}">

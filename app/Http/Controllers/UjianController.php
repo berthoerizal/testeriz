@@ -19,9 +19,27 @@ class UjianController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function ujian_sudah_daftar()
     {
-        $title = "Ikuti Ujian";
+        $title = "Ikuti Ujian - Sudah Daftar";
+
+        //sudah daftar
+        $soal = DB::table('daftars')
+            ->join('soals', 'daftars.id_soal', '=', 'soals.id')
+            ->join('users', 'soals.id_user', '=', 'users.id')
+            ->select('soals.*', 'daftars.status_daftar', 'users.name')
+            ->where('daftars.id_user', '=', Auth::user()->id)
+            ->orderBy('soals.id', 'desc')
+            ->get();
+
+        return view('ujian.ujian_sudah_daftar', ['title' => $title, 'soal' => $soal]);
+    }
+
+    public function semua_ujian()
+    {
+        $title = "Ikuti Ujian - Semua Ujian";
+
+
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'users.name')
@@ -30,15 +48,7 @@ class UjianController extends Controller
             ->orderBy('soals.id', 'desc')
             ->get();
 
-        $daftars = DB::table('daftars')
-            ->where('id_user', Auth::user()->id)
-            ->get();
-
-        $count_daftars = DB::table('daftars')
-            ->where('id_user', Auth::user()->id)
-            ->count();
-
-        return view('ujian.index', ['title' => $title, 'soal' => $soal, 'daftars' => $daftars, 'count_daftars' => $count_daftars]);
+        return view('ujian.semua_ujian', ['title' => $title, 'soal' => $soal]);
     }
 
     public function daftar_ujian(Request $request)
@@ -61,7 +71,7 @@ class UjianController extends Controller
                 'id_tanya' => $tanya->id,
                 'jawaban_benar' => $tanya->jawaban,
                 'jawaban_user' => NULL,
-                'status_jawab' => 0
+                'status_jawab' => NULL
             ]);
         }
 

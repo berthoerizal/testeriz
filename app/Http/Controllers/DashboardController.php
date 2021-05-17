@@ -31,14 +31,6 @@ class DashboardController extends Controller
             ->take(3)
             ->get();
 
-        $daftars = DB::table('daftars')
-            ->where('id_user', Auth::user()->id)
-            ->get();
-
-        $count_daftars = DB::table('daftars')
-            ->where('id_user', Auth::user()->id)
-            ->count();
-
-        return view('dashboard', ['title' => $title, 'user_count' => $user_count, 'soal_count' => $soal_count, 'ujian_count' => $ujian_count, 'ujians' => $ujians, 'daftars' => $daftars, 'count_daftars' => $count_daftars]);
+        return view('dashboard', ['title' => $title, 'user_count' => $user_count, 'soal_count' => $soal_count, 'ujian_count' => $ujian_count, 'ujians' => $ujians]);
     }
 }
