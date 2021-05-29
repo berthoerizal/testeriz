@@ -25,7 +25,8 @@
                             <tr>
                                 <th width="5%">#</th>
                                 <th>Judul</th>
-                                <th>Status</th>
+                                <th>Status Ujian</th>
+                                <th>Status Nilai</th>
                                 <th>Jadwal Mulai</th>
                                 <th>Jadwal Selesai</th>
                                 <th width="10%" class="text-center">Aksi</th>
@@ -46,6 +47,13 @@
                                         <b style="color: green;"><?php echo ucwords($soal->status_soal); ?></b>
                                     @else
                                         <b style="color: red;"><?php echo ucwords($soal->status_soal); ?></b>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($soal->status_nilai == 'publish')
+                                        <b style="color: green;"><?php echo ucwords($soal->status_nilai); ?></b>
+                                    @else
+                                        <b style="color: red;"><?php echo ucwords($soal->status_nilai); ?></b>
                                     @endif
                                 </td>
                                 <td>

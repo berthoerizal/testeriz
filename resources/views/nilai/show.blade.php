@@ -107,8 +107,10 @@
                                         Kunci Jawaban
                                     </div>
                                     <div class="float-right">
-                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>
-                                            Simpan Nilai</button>
+                                        @if ($soal->id_user == Auth::user()->id)
+                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>
+                                                Simpan Nilai</button>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="card-body">
