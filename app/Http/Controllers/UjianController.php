@@ -21,7 +21,7 @@ class UjianController extends Controller
 
     public function ujian_sudah_daftar()
     {
-        $title = "Ikuti Ujian - Sudah Daftar";
+        $title = "Ikuti Ujian | Sudah Daftar";
 
         //sudah daftar
         $soal = DB::table('daftars')
@@ -29,16 +29,16 @@ class UjianController extends Controller
             ->join('users', 'soals.id_user', '=', 'users.id')
             ->select('soals.*', 'daftars.status_daftar', 'users.name')
             ->where('daftars.id_user', '=', Auth::user()->id)
+            ->where('soals.status_soal', 'publish')
             ->orderBy('soals.id', 'desc')
             ->get();
 
         return view('ujian.ujian_sudah_daftar', ['title' => $title, 'soal' => $soal]);
     }
 
-    public function semua_ujian()
+    public function index()
     {
-        $title = "Ikuti Ujian - Semua Ujian";
-
+        $title = "Ikuti Ujian | Semua Ujian";
 
         $soal = DB::table('soals')
             ->join('users', 'soals.id_user', '=', 'users.id')
@@ -71,7 +71,7 @@ class UjianController extends Controller
                 'id_tanya' => $tanya->id,
                 'jawaban_benar' => $tanya->jawaban,
                 'jawaban_user' => NULL,
-                'status_jawab' => NULL
+                'status_jawab' => 0
             ]);
         }
 
@@ -109,22 +109,42 @@ class UjianController extends Controller
     {
         $title = "Ujian";
         $soal = DB::table('soals')->where('slug_soal', $slug_soal)->first();
-        $data = DB::table('tanyas')->where('id_soal', $soal->id)->paginate(1);
+        if ($soal->jenis_soal == 'obyektif') {
+            $data = DB::table('tanyas')->where('id_soal', $soal->id)->paginate(1);
 
-        $jawab = DB::table('jawabs')
-            ->where('id_soal', $soal->id)
-            ->where('id_user', Auth::user()->id)
-            ->paginate(1);
+            $jawab = DB::table('jawabs')
+                ->where('id_soal', $soal->id)
+                ->where('id_user', Auth::user()->id)
+                ->paginate(1);
 
-        $cek_daftar = DB::table('daftars')
-            ->where('id_soal', $soal->id)
-            ->where('id_user', Auth::user()->id)
-            ->first();
+            $cek_daftar = DB::table('daftars')
+                ->where('id_soal', $soal->id)
+                ->where('id_user', Auth::user()->id)
+                ->first();
 
-        if ($cek_daftar->status_daftar == 1) {
-            return view('ujian.jawab_ujian', ['data' => $data, 'soal' => $soal, 'title' => $title, 'jawab' => $jawab]);
+            if ($cek_daftar->status_daftar == 1) {
+                return view('ujian.jawab_ujian', ['data' => $data, 'soal' => $soal, 'title' => $title, 'jawab' => $jawab]);
+            } else {
+                return abort(404);
+            }
         } else {
-            return abort(404);
+            $data = DB::table('tanyas')
+                ->join('jawabs', 'tanyas.id', '=', 'jawabs.id_tanya')
+                ->select('tanyas.*', 'jawabs.id as id_jawab')
+                ->where('jawabs.id_soal', $soal->id)
+                ->where('jawabs.id_user', Auth::user()->id)
+                ->get();
+
+            $cek_daftar = DB::table('daftars')
+                ->where('id_soal', $soal->id)
+                ->where('id_user', Auth::user()->id)
+                ->first();
+
+            if ($cek_daftar->status_daftar == 1) {
+                return view('ujian.jawab_ujian_essay', ['data' => $data, 'soal' => $soal, 'title' => $title]);
+            } else {
+                return abort(404);
+            }
         }
     }
 
@@ -149,6 +169,27 @@ class UjianController extends Controller
             ->update(array('jawaban_user' => $request->jawaban_user, 'status_jawab' => $status_jawab));
 
         return redirect()->back();
+    }
+
+    public function selesai_ujian_essay(Request $request)
+    {
+        $ids = $request->input('id');
+        $jawabans = $request->input('jawaban');
+        foreach ($ids as $k => $id) {
+            $values = array(
+                'jawaban_user' => $jawabans[$k]
+            );
+            DB::table('jawabs')
+                ->where('id', '=', $id)
+                ->update($values);
+        }
+
+        $update_daftars = DB::table('daftars')
+            ->where('id_user', Auth::user()->id)
+            ->where('id_soal', $request->id_soal)
+            ->update(array('status_daftar' => 2));
+        $user = User::find(Auth::user()->id);
+        return redirect(route('detail_nilai', ['id_soal' => $request->id_soal, 'id_user' => Crypt::encrypt($user->id)]));
     }
 
     public function selesai_ujian($id_soal)

@@ -99,7 +99,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('ujian_sudah_daftar') }}">Sudah Daftar</a>
-                        <a class="collapse-item" href="{{ route('semua_ujian') }}">Semua Ujian</a>
+                        <a class="collapse-item" href="{{ route('ujian.index') }}">Semua Ujian</a>
                     </div>
                 </div>
             </li>
@@ -220,7 +220,7 @@
                 });
                 tinymce.init({
                     selector: '.textarea-tinymce',
-                    height: 200,
+                    height: 100,
                     theme: 'modern',
                     plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help',
                     toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',

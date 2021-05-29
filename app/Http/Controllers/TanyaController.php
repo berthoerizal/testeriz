@@ -20,10 +20,6 @@ class TanyaController extends Controller
     {
         $request->validate([
             'pertanyaan' => 'required',
-            'pilihan1' => 'required',
-            'pilihan2' => 'required',
-            'pilihan3' => 'required',
-            'pilihan4' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -50,30 +46,48 @@ class TanyaController extends Controller
             // $resorce->move(\base_path() . "/../assets/images", $gambar);
             $resorce->move(public_path() . '/assets/images', $gambar);
 
-            $tanya = Tanya::create([
-                'id_soal' => $soal->id,
-                'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $jawaban_benar,
-                'pilihan1' => $request->pilihan1,
-                'pilihan2' => $request->pilihan2,
-                'pilihan3' => $request->pilihan3,
-                'pilihan4' => $request->pilihan4,
-                'pilihan_benar' => $request->jawaban,
-                'gambar' => $gambar
-            ]);
+            if ($soal->jenis_soal == 'obyektif') {
+                $tanya = Tanya::create([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $jawaban_benar,
+                    'pilihan1' => $request->pilihan1,
+                    'pilihan2' => $request->pilihan2,
+                    'pilihan3' => $request->pilihan3,
+                    'pilihan4' => $request->pilihan4,
+                    'pilihan_benar' => $request->jawaban,
+                    'gambar' => $gambar
+                ]);
+            } else {
+                $tanya = Tanya::create([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $request->jawaban,
+                    'gambar' => $gambar
+                ]);
+            }
         } else {
             $gambar = NULL;
-            $tanya = Tanya::create([
-                'id_soal' => $soal->id,
-                'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $jawaban_benar,
-                'pilihan1' => $request->pilihan1,
-                'pilihan2' => $request->pilihan2,
-                'pilihan3' => $request->pilihan3,
-                'pilihan4' => $request->pilihan4,
-                'pilihan_benar' => $request->jawaban,
-                'gambar' => $gambar
-            ]);
+            if ($soal->jenis_soal == 'obyektif') {
+                $tanya = Tanya::create([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $jawaban_benar,
+                    'pilihan1' => $request->pilihan1,
+                    'pilihan2' => $request->pilihan2,
+                    'pilihan3' => $request->pilihan3,
+                    'pilihan4' => $request->pilihan4,
+                    'pilihan_benar' => $request->jawaban,
+                    'gambar' => $gambar
+                ]);
+            } else {
+                $tanya = Tanya::create([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $request->jawaban,
+                    'gambar' => $gambar
+                ]);
+            }
         }
 
         if (!$tanya) {
@@ -89,10 +103,6 @@ class TanyaController extends Controller
     {
         $request->validate([
             'pertanyaan' => 'required',
-            'pilihan1' => 'required',
-            'pilihan2' => 'required',
-            'pilihan3' => 'required',
-            'pilihan4' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -123,17 +133,26 @@ class TanyaController extends Controller
             $old_image = public_path() . "/assets/images/" . $tanya->gambar;
             @unlink($old_image);
 
-            $tanya->update([
-                'id_soal' => $soal->id,
-                'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $jawaban_benar,
-                'pilihan1' => $request->pilihan1,
-                'pilihan2' => $request->pilihan2,
-                'pilihan3' => $request->pilihan3,
-                'pilihan4' => $request->pilihan4,
-                'pilihan_benar' => $request->jawaban,
-                'gambar' => $gambar
-            ]);
+            if ($soal->jenis_soal == 'obyektif') {
+                $tanya->update([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $jawaban_benar,
+                    'pilihan1' => $request->pilihan1,
+                    'pilihan2' => $request->pilihan2,
+                    'pilihan3' => $request->pilihan3,
+                    'pilihan4' => $request->pilihan4,
+                    'pilihan_benar' => $request->jawaban,
+                    'gambar' => $gambar
+                ]);
+            } else {
+                $tanya->update([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $request->jawaban,
+                    'gambar' => $gambar
+                ]);
+            }
 
             if (!$tanya) {
                 session()->flash('error', 'Data gagal diubah');
@@ -144,16 +163,24 @@ class TanyaController extends Controller
             }
         } else {
             $tanya = Tanya::find($id);
-            $tanya->update([
-                'id_soal' => $soal->id,
-                'pertanyaan' => $request->pertanyaan,
-                'jawaban' => $jawaban_benar,
-                'pilihan1' => $request->pilihan1,
-                'pilihan2' => $request->pilihan2,
-                'pilihan3' => $request->pilihan3,
-                'pilihan4' => $request->pilihan4,
-                'pilihan_benar' => $request->jawaban,
-            ]);
+            if ($soal->jenis_soal == 'obyektif') {
+                $tanya->update([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $jawaban_benar,
+                    'pilihan1' => $request->pilihan1,
+                    'pilihan2' => $request->pilihan2,
+                    'pilihan3' => $request->pilihan3,
+                    'pilihan4' => $request->pilihan4,
+                    'pilihan_benar' => $request->jawaban
+                ]);
+            } else {
+                $tanya->update([
+                    'id_soal' => $soal->id,
+                    'pertanyaan' => $request->pertanyaan,
+                    'jawaban' => $request->jawaban
+                ]);
+            }
 
             if (!$tanya) {
                 session()->flash('error', 'Data gagal diubah');

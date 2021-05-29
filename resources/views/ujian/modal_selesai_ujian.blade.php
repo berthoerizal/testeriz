@@ -1,6 +1,5 @@
 <a class="btn btn-dark btn-sm" href="#" data-toggle="modal" data-target="#selesaiUjian">
-    <i class="fa fa-arrow-right"></i>
-    Selesai Ujian
+    Selesai Ujian <i class="fa fa-arrow-right"></i>
 </a>
 <!-- Tambah Modal-->
 <div class="modal fade" id="selesaiUjian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -18,7 +17,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-                <a href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}" class="btn btn-dark btn-sm">Yakin</a>
+                @if ($soal->jenis_soal == 'obyektif')
+                    <a href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}"
+                        class="btn btn-dark btn-sm">Yakin</a>
+                @else
+                    <button type="submit" class="btn btn-dark btn-sm">Yakin</button>
+                @endif
             </div>
         </div>
     </div>

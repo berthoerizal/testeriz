@@ -26,18 +26,31 @@
                                         placeholder="Judul" value="{{ old('judul_soal') }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="status_soal">Status Ujian</label>
-                                    <select class="form-control" id="status_soal" name="status_soal">
-                                        <option value="draft">Draft</option>
-                                        <option value="publish">Publish</option>
+                                    <label for="jenis_soal">Jenis Soal</label>
+                                    <select class="form-control" id="jenis_soal" name="jenis_soal">
+                                        <option value="obyektif">Obyektif</option>
+                                        <option value="essay">Essay</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="status_nilai">Status Nilai</label>
-                                    <select class="form-control" id="status_nilai" name="status_nilai">
-                                        <option value="draft">Draft</option>
-                                        <option value="publish">Publish</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status_soal">Status Ujian</label>
+                                            <select class="form-control" id="status_soal" name="status_soal">
+                                                <option value="draft">Draft</option>
+                                                <option value="publish">Publish</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status_nilai">Status Nilai</label>
+                                            <select class="form-control" id="status_nilai" name="status_nilai">
+                                                <option value="draft">Draft</option>
+                                                <option value="publish">Publish</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">

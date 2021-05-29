@@ -24,8 +24,7 @@
                             <tr>
                                 <th width="5%">#</th>
                                 <th>Nama Peserta</th>
-                                <th>Terjawab</th>
-                                <th>Jumlah Pertanyaan</th>
+                                <th>Email</th>
                                 <th>Nilai</th>
                                 <th width="20%" class="text-center">Aksi</th>
                             </tr>
@@ -39,9 +38,8 @@
                                     <?php echo $i; ?>
                                 </td>
                                 <td><?php echo $nilai->nama_peserta; ?></td>
-                                <td class="text-center"><?php echo $nilai->terjawab; ?>
+                                <td><?php echo $nilai->email; ?></td>
                                 </td>
-                                <td class="text-center"><?php echo $jumlah_pertanyaan; ?>
                                 </td>
                                 <td class="text-right"><?php echo number_format($nilai->total_nilai); ?></td>
                                 <td class="text-center">

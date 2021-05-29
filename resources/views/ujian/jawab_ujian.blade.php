@@ -12,7 +12,7 @@
                 <div class="card text-justify">
                     <div class="card-header">
                         <div class="float-left">
-                            <button type="button" class="btn btn-sm  btn-outline-dark" id="demo"></button>
+                            <a href="#" class="btn btn-sm btn-outline-dark disabled" id="demo"></a>
                         </div>
                         <div class="float-right">
                             @include('ujian.modal_selesai_ujian')

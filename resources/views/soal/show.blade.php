@@ -182,11 +182,13 @@
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                        <td><i class="fa fa-user"></i> Dibuat Oleh</td>
+                                        <td width="5%"><i class="fa fa-user"></i></td>
+                                        <td>Dibuat Oleh</td>
                                         <td>{{ $soal->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fa fa-book"></i> Materi File</td>
+                                        <td width="5%"><i class="fa fa-book"></i></td>
+                                        <td>Materi File</td>
                                         <td>
                                             @if ($soal->materi_file == null)
                                                 <i>Tidak ada file.</i>
@@ -198,12 +200,20 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fa fa-star"></i> Judul</td>
+                                        <td width="5%"><i class="fa fa-star"></i></td>
+                                        <td>Judul</td>
                                         <td><b>{{ $soal->judul_soal }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"><i class="fa fa-file-alt"></i></td>
+                                        <td>Jenis Soal</td>
+                                        <td><i><?php echo ucwords($soal->jenis_soal); ?></i>
+                                        </td>
                                     </tr>
                                     @if ($soal->id_user == $user->id)
                                         <tr>
-                                            <td><i class="fa fa-lightbulb"></i> Status Ujian</td>
+                                            <td width="5%"><i class="fa fa-lightbulb"></i></td>
+                                            <td>Status Ujian</td>
                                             <td>
                                                 @if ($soal->status_soal == 'publish')
                                                     <b style="color: green;"><?php echo
@@ -215,7 +225,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><i class="fa fa-trophy"></i> Status Nilai</td>
+                                            <td width="5%"><i class="fa fa-trophy"></i></td>
+                                            <td>Status Nilai</td>
                                             <td>
                                                 @if ($soal->status_nilai == 'publish')
                                                     <b style="color: green;"><?php echo
@@ -228,11 +239,13 @@
                                         </tr>
                                     @endif
                                     <tr>
-                                        <td><i class="fa fa-question"></i> Jumlah Pertanyaan</td>
+                                        <td width="5%"><i class="fa fa-question"></i></td>
+                                        <td>Jumlah Pertanyaan</td>
                                         <td>{{ $count_tanya }}</td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fa fa-calendar"></i> Jadwal Mulai</td>
+                                        <td width="5%"><i class="fa fa-calendar"></i></td>
+                                        <td>Jadwal Mulai</td>
                                         <td>
                                             @if ($soal->tanggal_mulai == null || $soal->waktu_mulai == null)
                                                 -
@@ -245,7 +258,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fa fa-calendar"></i> Jadwal Selesai</td>
+                                        <td width="5%"><i class="fa fa-calendar"></i></td>
+                                        <td>Jadwal Selesai</td>
                                         <td>
                                             @if ($soal->tanggal_selesai == null || $soal->waktu_selesai == null)
                                                 -
@@ -256,12 +270,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><i class="fa fa-key"></i> Password
-                                            @if ($soal->id_user == $user->id)
-                                                Soal
-                                            @else
-                                                Ujian
-                                            @endif
+                                        <td width="5%"><i class="fa fa-key"></i></td>
+                                        <td>Password Ujian
                                         </td>
                                         <td><b>{{ $soal->pass_soal }}</b></td>
                                     </tr>

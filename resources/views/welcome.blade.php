@@ -18,7 +18,7 @@
                                     <a href="{{ route('soal.index') }}" class="btn btn-outline-info">
                                         Buat Soal
                                     </a>
-                                    <a href="{{ route('semua_ujian') }}" class="btn btn-outline-info">
+                                    <a href="{{ route('ujian.index') }}" class="btn btn-outline-info">
                                         Ikuti Ujian
                                     </a>
                                 </div>
@@ -47,7 +47,7 @@
                                     <a href="{{ route('soal.index') }}" class="btn btn-outline-info">
                                         Buat Soal
                                     </a>
-                                    <a href="{{ route('semua_ujian') }}" class="btn btn-outline-info">
+                                    <a href="{{ route('ujian.index') }}" class="btn btn-outline-info">
                                         Ikuti Ujian
                                     </a>
                                 </div>
