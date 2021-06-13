@@ -45,9 +45,10 @@
                     <input type="hidden" name="id_soal" value="{{ $soal->id }}" />
                     <div class="card text-justify">
                         <div class="card-header">
-                            <div class="float-right">
-                                <p style="padding: 8px; border-style: solid; font-size: 12px;"><b id="demo"></b></p>
-                            </div>
+                            <p
+                                style="padding: 8px; border-style: solid; font-size: 12px; border-color: #3B3838; color: #ffff; border-radius: 8px; background-color: #3B3838">
+                                <b id="demo"></b>
+                            </p>
                         </div>
                         <div class="card-body">
                             <div class="row">
