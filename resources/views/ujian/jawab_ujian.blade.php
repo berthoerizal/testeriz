@@ -11,11 +11,11 @@
             <div class="col-md-12">
                 <div class="card text-justify">
                     <div class="card-header">
-                        <div class="float-left">
-                            <a href="#" class="btn btn-sm btn-outline-dark disabled" id="demo"></a>
-                        </div>
                         <div class="float-right">
-                            @include('ujian.modal_selesai_ujian')
+                            <p
+                                style="padding: 8px; border-style: solid; font-size: 12px; border-color: #3B3838; color: #ffff; border-radius: 8px; background-color: #3B3838">
+                                <b id="demo"></b>
+                            </p>
                         </div>
                     </div>
                     <div class="card-body">
@@ -52,10 +52,10 @@
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan1 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan1)
                                             <button type="submit"
-                                                class="btn btn-dark btn-sm btn-block text-justify">{{ $row->pilihan1 }}</button>
+                                                class="btn btn-primary btn-sm btn-block text-justify">{{ $row->pilihan1 }}</button>
                                         @else
                                             <button type="submit"
-                                                class="btn btn-outline-dark btn-sm btn-block text-justify">{{ $row->pilihan1 }}</button>
+                                                class="btn btn-outline-primary btn-sm btn-block text-justify">{{ $row->pilihan1 }}</button>
                                         @endif
                                     </form>
 
@@ -67,10 +67,10 @@
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan2 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan2)
                                             <button type="submit"
-                                                class="btn btn-dark btn-sm btn-block text-justify">{{ $row->pilihan2 }}</button>
+                                                class="btn btn-primary btn-sm btn-block text-justify">{{ $row->pilihan2 }}</button>
                                         @else
                                             <button type="submit"
-                                                class="btn btn-outline-dark btn-sm btn-block text-justify">{{ $row->pilihan2 }}</button>
+                                                class="btn btn-outline-primary btn-sm btn-block text-justify">{{ $row->pilihan2 }}</button>
                                         @endif
                                     </form>
 
@@ -82,10 +82,10 @@
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan3 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan3)
                                             <button type="submit"
-                                                class="btn btn-dark btn-sm btn-block text-justify">{{ $row->pilihan3 }}</button>
+                                                class="btn btn-primary btn-sm btn-block text-justify">{{ $row->pilihan3 }}</button>
                                         @else
                                             <button type="submit"
-                                                class="btn btn-outline-dark btn-sm btn-block text-justify">{{ $row->pilihan3 }}</button>
+                                                class="btn btn-outline-primary btn-sm btn-block text-justify">{{ $row->pilihan3 }}</button>
                                         @endif
                                     </form>
 
@@ -97,10 +97,10 @@
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan4 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan4)
                                             <button type="submit"
-                                                class="btn btn-dark btn-sm btn-block text-justify">{{ $row->pilihan4 }}</button>
+                                                class="btn btn-primary btn-sm btn-block text-justify">{{ $row->pilihan4 }}</button>
                                         @else
                                             <button type="submit"
-                                                class="btn btn-outline-dark btn-sm btn-block text-justify">{{ $row->pilihan4 }}</button>
+                                                class="btn btn-outline-primary btn-sm btn-block text-justify">{{ $row->pilihan4 }}</button>
                                         @endif
                                     </form>
 
@@ -112,8 +112,11 @@
                         </p>
                     </div>
                     <div class="card-footer text-muted">
-                        <div class="d-flex justify-content-center pagination">
+                        <div class="float-left">
                             {!! $data->links() !!}
+                        </div>
+                        <div class="float-right">
+                            @include('ujian.modal_selesai_ujian')
                         </div>
                     </div>
                 </div>

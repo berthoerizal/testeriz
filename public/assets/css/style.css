@@ -16,7 +16,7 @@ body {
 }
 
 .table{
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .canvas_grafik{
@@ -39,24 +39,4 @@ body {
 
  .pilihan_jawaban{
      margin-bottom: 10px;
- }
-
- .pagination>li>a,
- .pagination>li>span {
-     color: #333; // use your own color here
- }
-
- .pagination>.active>a,
- .pagination>.active>a:focus,
- .pagination>.active>a:hover,
- .pagination>.active>span,
- .pagination>.active>span:focus,
- .pagination>.active>span:hover {
-     background-color: #333;
-     border-color: #333;
- }
-
- .page-item.active .page-link {
-     background-color: #333;
-     border-color: #333;
  }

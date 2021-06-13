@@ -19,9 +19,9 @@
 
         <!-- Page Heading -->
         @if ($soal->id_user == $user->id)
-            <h1 class="h3 mb-2 text-gray-800">Info Soal | {{ $soal->judul_soal }}</h1>
+            <h1 class="h3 mb-2 text-gray-800">Soal | {{ $soal->judul_soal }}</h1>
         @else
-            <h1 class="h3 mb-2 text-gray-800">Info Ujian | {{ $soal->judul_soal }}</h1>
+            <h1 class="h3 mb-2 text-gray-800">Ujian | {{ $soal->judul_soal }}</h1>
         @endif
         <hr>
         <div class="row">

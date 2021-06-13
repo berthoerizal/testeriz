@@ -82,7 +82,7 @@
                                         <th>Judul</th>
                                         <th>Jadwal Mulai</th>
                                         <th>Jadwal Selesai</th>
-                                        <th width="10%" class="text-center">Aksi</th>
+                                        <th width="15%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,7 +116,7 @@
                                         <td class="text-center">
                                             <a class="btn btn-primary btn-sm"
                                                 href="{{ route('soal.show', $soal->slug_soal) }}">
-                                                <i class="fa fa-book"></i>
+                                                <i class="fa fa-book"></i> Lihat
                                             </a>
                                         </td>
                                     </tr>

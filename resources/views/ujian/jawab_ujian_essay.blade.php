@@ -45,11 +45,8 @@
                     <input type="hidden" name="id_soal" value="{{ $soal->id }}" />
                     <div class="card text-justify">
                         <div class="card-header">
-                            <div class="float-left">
-                                <a href="#" class="btn btn-sm btn-outline-dark disabled" id="demo"></a>
-                            </div>
                             <div class="float-right">
-                                @include('ujian.modal_selesai_ujian')
+                                <p style="padding: 8px; border-style: solid; font-size: 12px;"><b id="demo"></b></p>
                             </div>
                         </div>
                         <div class="card-body">
@@ -93,6 +90,11 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <div class="float-right">
+                                @include('ujian.modal_selesai_ujian')
                             </div>
                         </div>
                     </div>

@@ -98,11 +98,7 @@ class NilaiController extends Controller
                 ->first();
         }
 
-        if ($user->id == Auth::user()->id || Auth::user()->id_role == 21) {
-            return view('nilai.show', ['title' => $title, 'jawabs' => $jawabs, 'soal' => $soal, 'nilai' => $nilai, 'user' => $user, 'jumlah_pertanyaan' => $count_tanyas]);
-        } else {
-            return abort(404);
-        }
+        return view('nilai.show', ['title' => $title, 'jawabs' => $jawabs, 'soal' => $soal, 'nilai' => $nilai, 'user' => $user, 'jumlah_pertanyaan' => $count_tanyas]);
     }
 
     public function nilai_essay(Request $request)
