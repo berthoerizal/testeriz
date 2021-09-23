@@ -42,7 +42,7 @@
                                 <?php } else { ?>
                                 @include('soal.modal_create_tanya')
                                 <?php } ?>
-                                <a href="{{ route('nilai_peserta', $soal->slug_soal) }}" class="btn btn-warning btn-sm"><i
+                                <a href="{{ route('nilai_peserta', $soal->slug_soal) }}" class="btn btn-primary btn-sm"><i
                                         class="fa fa-trophy"></i>
                                     Nilai</a>
                             </div>
@@ -143,10 +143,10 @@
                                 @if ($cek_daftar == 0)
                                     <?php if ($jadwal_sekarang <= $jadwal_selesai) { ?>
                                         @include('ujian.modal_daftar_ujian') <a href="#"
-                                        class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i> Nilai</a><?php } else { ?> <a href="#"
+                                        class="btn btn-primary btn-sm disabled"><i class="fa fa-trophy"></i> Nilai</a><?php } else { ?> <a href="#"
                                             class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
                                             Daftar</a>
-                                        <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
+                                        <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-trophy"></i>
                                             Nilai</a>
                                         <?php } ?>
                                     @elseif ($cek_daftar==1)
@@ -155,11 +155,11 @@
                                             class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
                                             Masuk
                                             Ujian</a>
-                                            <a href="#" class="btn btn-warning btn-sm disabled"><i class="fa fa-trophy"></i>
+                                            <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-trophy"></i>
                                                 Nilai</a> <?php } else { ?>
                                             <a href="#" class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
                                                 Masuk Ujian</a>
-                                            <a class="btn btn-warning btn-sm"
+                                            <a class="btn btn-primary btn-sm"
                                                 href="{{ route('selesai_ujian', ['id_soal' => $soal->id]) }}">
                                                 <i class="fa fa-trophy"></i>
                                                 Nilai
@@ -168,7 +168,7 @@
                                         @elseif($cek_daftar==2 || $jadwal_sekarang <= $jadwal_selesai) <a href="#"
                                                 class="btn btn-primary btn-sm disabled"><i class="fa fa-edit"></i>
                                                 Masuk Ujian</a>
-                                                <a class="btn btn-warning btn-sm"
+                                                <a class="btn btn-primary btn-sm"
                                                     href="{{ route('detail_nilai', ['id_soal' => $soal->id, 'id_user' => Crypt::encrypt($user->id)]) }}">
                                                     <i class="fa fa-trophy"></i>
                                                     Nilai
@@ -269,12 +269,14 @@
                                             @endif
                                         </td>
                                     </tr>
+                                    @if ($soal->id_user == $user->id)
                                     <tr>
                                         <td width="5%"><i class="fa fa-key"></i></td>
-                                        <td>Password Ujian
+                                        <td>Kode Ujian
                                         </td>
                                         <td><b>{{ $soal->pass_soal }}</b></td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

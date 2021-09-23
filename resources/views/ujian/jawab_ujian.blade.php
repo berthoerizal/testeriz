@@ -1,6 +1,12 @@
 @extends('layouts_ujian.app')
 
 @section('content')
+<?php 
+  if(isset($_GET['page']))
+      $page = $_GET['page']; 
+  else
+      $page=1;
+?>
     <div class="container">
         <div class="row mb-3">
             <div class="col-md-12">
@@ -49,6 +55,7 @@
                                         method="POST" class="pilihan_jawaban">
                                         @method('PUT')
                                         @csrf
+                                        <input name="page" type="hidden" value={{ $page}}>
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan1 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan1)
                                             <button type="submit"
@@ -64,6 +71,7 @@
                                         method="POST" class="pilihan_jawaban">
                                         @method('PUT')
                                         @csrf
+                                        <input name="page" type="hidden" value={{ $page }}>
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan2 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan2)
                                             <button type="submit"
@@ -79,6 +87,7 @@
                                         method="POST" class="pilihan_jawaban">
                                         @method('PUT')
                                         @csrf
+                                        <input name="page" type="hidden" value={{ $page}}>
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan3 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan3)
                                             <button type="submit"
@@ -94,6 +103,7 @@
                                         method="POST" class="pilihan_jawaban">
                                         @method('PUT')
                                         @csrf
+                                        <input name="page" type="hidden" value={{ $page}}>
                                         <input type="hidden" name="jawaban_user" value="{{ $row->pilihan4 }}" />
                                         @if ($jawab->jawaban_user == $row->pilihan4)
                                             <button type="submit"

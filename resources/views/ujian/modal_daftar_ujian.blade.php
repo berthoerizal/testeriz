@@ -25,12 +25,12 @@
                 <input type="hidden" name="id_soal" value="{{ $soal->id }}" />
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="password_ujian">Password Ujian</label>
+                        <label for="kode_ujian">Kode Ujian</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon3"><i class="fa fa-key"></i></span>
                             </div>
-                            <input type="password" name="password_ujian" id="password_ujian" value=""
+                            <input type="password" name="kode_ujian" id="kode_ujian" value=""
                                 class="form-control" id="basic-url" aria-describedby="basic-addon3">
                         </div>
                     </div>

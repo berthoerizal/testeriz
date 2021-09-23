@@ -54,12 +54,12 @@ class UjianController extends Controller
     public function daftar_ujian(Request $request)
     {
         $request->validate([
-            'password_ujian' => 'required',
+            'kode_ujian' => 'required',
         ]);
 
         $soal = Soal::find($request->id_soal);
-        if ($soal->pass_soal != $request->password_ujian) {
-            session()->flash('error', 'Gagal melakukan pendaftaran, Password Ujian Salah');
+        if ($soal->pass_soal != $request->kode_ujian) {
+            session()->flash('error', 'Gagal melakukan pendaftaran, kode ujian Salah');
             return redirect(route('soal.show', $soal->slug_soal));
         }
 
@@ -168,7 +168,18 @@ class UjianController extends Controller
             ->where('id_tanya', $id_tanya)
             ->update(array('jawaban_user' => $request->jawaban_user, 'status_jawab' => $status_jawab));
 
-        return redirect()->back();
+        $soal = Soal::find($id_soal);
+        $count_tanya = DB::table('tanyas')
+            ->select('tanyas.*')
+            ->where('id_soal', $soal->id)
+            ->count();
+
+        $nextpage = $request->page + 1;
+        if (($nextpage - 1) == $count_tanya) {
+            return redirect()->back();
+        } else {
+            return redirect("jawab_ujian/$soal->slug_soal?page=$nextpage");
+        }
     }
 
     public function selesai_ujian_essay(Request $request)
